@@ -50,11 +50,12 @@ function Index() {
               tabs={["Текущие", "Завершенные"] as const}
               active="Текущие"
             />
+            <SearchBar />
           </div>
 
           <div
-            className="flex flex-col items-start"
-            style={{ width: 344, gap: 12, paddingBottom: 64 }}
+            className="flex flex-col items-start self-center"
+            style={{ width: 336, gap: 8, paddingBottom: 64 }}
           >
             {mockTournaments.map((t) => (
               <TournamentCard key={t.id} tournament={t} />
