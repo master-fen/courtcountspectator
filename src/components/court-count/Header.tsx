@@ -1,4 +1,5 @@
 import { Menu } from "lucide-react";
+import { Logo } from "./Logo";
 
 export function Header() {
   return (
@@ -6,36 +7,7 @@ export function Header() {
       className="flex flex-row items-center justify-between bg-court-surface"
       style={{ width: 360, height: 64, padding: "16px 24px", gap: 12 }}
     >
-      <div className="flex items-center" style={{ width: 64, height: 32, gap: 0 }}>
-        <div
-          className="flex items-center justify-center font-bold"
-          style={{
-            width: 32,
-            height: 32,
-            borderRadius: 6,
-            background: "#9CF73E",
-            color: "#202020",
-            fontFamily: "var(--font-body)",
-            fontSize: 18,
-          }}
-        >
-          C
-        </div>
-        <div
-          className="flex items-center justify-center font-bold"
-          style={{
-            width: 32,
-            height: 32,
-            borderRadius: 6,
-            background: "#85D0FA",
-            color: "#FFFFFF",
-            fontFamily: "var(--font-body)",
-            fontSize: 18,
-          }}
-        >
-          C
-        </div>
-      </div>
+      <Logo height={32} />
       <button type="button" aria-label="Меню" style={{ color: "#202020" }}>
         <Menu style={{ width: 24, height: 24 }} />
       </button>
