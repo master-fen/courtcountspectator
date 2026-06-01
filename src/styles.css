@@ -116,17 +116,22 @@
   --court-bg: #DBE3E6;
   --court-surface: #FFFFFF;
   --court-surface-muted: #F2F6F7;
+  --court-card-header: rgba(133, 208, 250, 0.25);
+  --court-border: #929C9F;
   --court-primary: #4DB2EA;
   --court-primary-soft: rgba(133, 208, 250, 0.25);
   --court-green: #9CF73E;
-  --court-on-surface: #1A1A1A;
-  --court-on-surface-strong: #202020;
-  --court-on-surface-300: #525556;
-  --court-on-surface-200: #393C3D;
-  --court-on-surface-400: #929C9F;
+  --court-logo-green: #9CF73E;
+  --court-logo-blue: #85D0FA;
+  --court-text: #1A1A1A;
+  --court-text-strong: #202020;
+  --court-text-soft: #525556;
+  --court-text-muted: #393C3D;
+  --court-on-primary: #FFFFFF;
   --font-display: 'Roboto', system-ui, sans-serif;
   --font-body: 'Lato', system-ui, sans-serif;
 }
+
 
 .dark {
   --background: oklch(0.129 0.042 264.695);
