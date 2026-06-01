@@ -1,25 +1,40 @@
 const tabs = ["Матчи", "Настройки", "Судьи"] as const;
+type Tab = (typeof tabs)[number];
 
-export function SectionTabs({ active = "Матчи" as (typeof tabs)[number] }) {
+export function SectionTabs({ active = "Матчи" as Tab }: { active?: Tab }) {
   return (
-    <div className="px-4 border-b border-border">
-      <div className="flex gap-6">
+    <div style={{ width: 360, padding: "0 12px" }}>
+      <div
+        className="flex flex-row items-center"
+        style={{
+          width: 336,
+          height: 31,
+          gap: 8,
+          borderBottom: "0.5px solid #525556",
+        }}
+      >
         {tabs.map((tab) => {
           const isActive = tab === active;
           return (
             <button
               key={tab}
               type="button"
-              className={`relative py-3 text-base ${
-                isActive
-                  ? "text-court-blue-strong font-semibold"
-                  : "text-foreground"
-              }`}
+              className="flex items-center justify-center"
+              style={{
+                padding: "2px 8px",
+                height: 31,
+                marginBottom: "-0.5px",
+                borderBottom: isActive
+                  ? "2px solid #4DB2EA"
+                  : "2px solid transparent",
+                fontFamily: "var(--font-body)",
+                fontWeight: isActive ? 600 : 400,
+                fontSize: 16,
+                lineHeight: "20px",
+                color: isActive ? "#4DB2EA" : "#1A1A1A",
+              }}
             >
               {tab}
-              {isActive && (
-                <span className="absolute left-0 right-0 -bottom-px h-0.5 bg-court-blue-strong rounded-full" />
-              )}
             </button>
           );
         })}
