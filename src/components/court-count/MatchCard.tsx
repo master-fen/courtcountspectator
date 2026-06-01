@@ -161,7 +161,11 @@ export function MatchCard({ match }: { match: Match }) {
       {/* Body */}
       <div
         className="w-full flex flex-col"
-        style={{ padding: "16px 12px 16px", gap: 12, background: "#FEFEFE" }}
+        style={{
+          padding: match.message ? "16px 12px 0" : "16px 12px",
+          gap: 12,
+          background: "#FEFEFE",
+        }}
       >
         {match.players.map((p, i) => (
           <PlayerRow key={i} player={p} maxSets={maxSets} />
