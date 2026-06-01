@@ -38,7 +38,7 @@ function PlayerRow({ player, maxSets }: { player: Player; maxSets: number }) {
         >
           {player.name}
         </span>
-        {player.isServing && <TennisBallIcon size={18} />}
+        {player.isServing && <TennisBallIcon size={10} />}
       </div>
       <div className="flex flex-row items-center" style={{ gap: 19 }}>
         <span
