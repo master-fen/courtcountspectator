@@ -59,9 +59,19 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --color-court-blue: var(--court-blue);
-  --color-court-blue-strong: var(--court-blue-strong);
+  --color-court-surface: var(--court-surface);
+  --color-court-surface-muted: var(--court-surface-muted);
+  --color-court-primary: var(--court-primary);
+  --color-court-primary-soft: var(--court-primary-soft);
   --color-court-green: var(--court-green);
+  --color-court-on-surface: var(--court-on-surface);
+  --color-court-on-surface-strong: var(--court-on-surface-strong);
+  --color-court-on-surface-300: var(--court-on-surface-300);
+  --color-court-on-surface-200: var(--court-on-surface-200);
+  --color-court-on-surface-400: var(--court-on-surface-400);
+  --color-court-bg: var(--court-bg);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
 }
 
 :root {
