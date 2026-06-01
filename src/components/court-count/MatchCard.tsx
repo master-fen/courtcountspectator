@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { ChevronRight, Megaphone } from "lucide-react";
 import type { Match, Player } from "@/lib/mock-matches";
 
