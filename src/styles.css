@@ -168,3 +168,8 @@
     color: var(--color-foreground);
   }
 }
+
+html { scrollbar-width: none; }
+html::-webkit-scrollbar { display: none; width: 0; height: 0; }
+body { scrollbar-width: none; }
+body::-webkit-scrollbar { display: none; width: 0; height: 0; }
