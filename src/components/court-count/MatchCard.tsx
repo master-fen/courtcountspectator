@@ -149,7 +149,15 @@ export function MatchCard({ match }: { match: Match }) {
               fontVariantNumeric: "tabular-nums",
             }}
           >
-            {match.timer}
+            {match.timer.split(":").reduce<React.ReactNode[]>((acc, part, i, arr) => {
+              acc.push(<span key={`p${i}`}>{part}</span>);
+              if (i < arr.length - 1) {
+                acc.push(
+                  <span key={`c${i}`} className="animate-timer-blink">:</span>
+                );
+              }
+              return acc;
+            }, [])}
           </span>
           <ChevronRight
             style={{ width: 16, height: 16, color: "var(--court-text-soft)" }}
