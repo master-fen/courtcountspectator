@@ -2,7 +2,15 @@ export function CreateMatchButton() {
   return (
     <div
       className="flex items-center justify-center bg-court-surface"
-      style={{ width: 360, padding: "12px 0" }}
+      style={{
+        width: 360,
+        padding: "12px 0",
+        position: "fixed",
+        bottom: 0,
+        left: "50%",
+        transform: "translateX(-50%)",
+        zIndex: 50,
+      }}
     >
       <button
         type="button"

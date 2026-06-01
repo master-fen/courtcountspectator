@@ -53,7 +53,7 @@ function Index() {
 
           <div
             className="flex flex-col items-start"
-            style={{ width: 344, gap: 12, paddingBottom: 16 }}
+            style={{ width: 344, gap: 12, paddingBottom: 80 }}
           >
             {mockMatches.map((m) => (
               <MatchCard key={m.id} match={m} />
