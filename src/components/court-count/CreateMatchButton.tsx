@@ -1,4 +1,4 @@
-export function CreateMatchButton({ label = "Создать матч" }: { label?: string } = {}) {
+export function CreateMatchButton() {
   return (
     <div
       className="flex items-center justify-center bg-court-surface"
@@ -27,7 +27,7 @@ export function CreateMatchButton({ label = "Создать матч" }: { label
           lineHeight: "20px",
         }}
       >
-        {label}
+        Создать матч
       </button>
     </div>
   );
