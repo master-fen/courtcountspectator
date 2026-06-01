@@ -166,6 +166,22 @@
   --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
+
+  --court-bg: #0D1316;
+  --court-surface: #182329;
+  --court-surface-muted: #1E303A;
+  --court-card-header: #1E303A;
+  --court-border: #70818F;
+  --court-primary: #4DB2EA;
+  --court-primary-soft: rgba(133, 208, 250, 0.15);
+  --court-green: #84EA1A;
+  --court-logo-green: #84EA1A;
+  --court-logo-blue: #85D0FA;
+  --court-text: #AEB4BA;
+  --court-text-strong: #AEB4BA;
+  --court-text-soft: #70818F;
+  --court-text-muted: #70818F;
+  --court-on-primary: #FFFFFF;
 }
 
 @layer base {
