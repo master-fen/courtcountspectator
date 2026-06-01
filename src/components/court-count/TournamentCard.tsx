@@ -2,32 +2,31 @@ import { Link } from "@tanstack/react-router";
 import { Calendar, Trophy } from "lucide-react";
 import type { Tournament } from "@/lib/mock-tournaments";
 
-
 export function TournamentCard({ tournament }: { tournament: Tournament }) {
   return (
     <Link
       to="/tournaments/$tournamentId"
       params={{ tournamentId: tournament.id }}
       className="block"
-      style={{ width: 344 }}
+      style={{ width: 336 }}
     >
       <article
         className="flex flex-col overflow-hidden"
         style={{
-          width: 344,
+          width: 336,
           border: "0.5px solid var(--court-border)",
-          borderRadius: 6,
+          borderRadius: 4,
           background: "var(--court-surface)",
-          padding: 16,
-          gap: 12,
+          padding: 12,
+          gap: 8,
         }}
       >
         <h2
           style={{
             fontFamily: "var(--font-body)",
             fontWeight: 700,
-            fontSize: 16,
-            lineHeight: "22px",
+            fontSize: 14,
+            lineHeight: "17px",
             color: "var(--court-text-strong)",
             margin: 0,
             wordBreak: "break-word",
@@ -36,31 +35,34 @@ export function TournamentCard({ tournament }: { tournament: Tournament }) {
           {tournament.name}
         </h2>
 
-        <div className="flex flex-row items-start" style={{ gap: 12 }}>
+        <div className="flex flex-row items-end" style={{ gap: 12 }}>
           <div
             className="flex items-center justify-center flex-shrink-0"
             style={{
-              width: 64,
-              height: 64,
+              width: 54,
+              height: 51,
+              padding: 8,
               borderRadius: 8,
-              background: "var(--court-surface-muted)",
+              background: "var(--court-trophy-bg)",
             }}
           >
             <Trophy
-              style={{ width: 32, height: 32, color: "#E5B53A" }}
+              style={{
+                width: 26,
+                height: 26,
+                color: "var(--court-trophy-icon)",
+              }}
               strokeWidth={1.75}
+              fill="var(--court-trophy-icon)"
             />
           </div>
 
-          <div
-            className="flex flex-col justify-center"
-            style={{ gap: 8, minHeight: 64, flex: 1 }}
-          >
+          <div className="flex flex-col" style={{ gap: 8, flex: 1 }}>
             <div className="flex flex-row items-center" style={{ gap: 8 }}>
               <span
                 aria-label="Россия"
                 className="relative inline-block overflow-hidden flex-shrink-0"
-                style={{ width: 20, height: 14, borderRadius: 2 }}
+                style={{ width: 18, height: 14, borderRadius: 1 }}
               >
                 <span
                   style={{
@@ -77,7 +79,7 @@ export function TournamentCard({ tournament }: { tournament: Tournament }) {
                   fontWeight: 400,
                   fontSize: 14,
                   lineHeight: "18px",
-                  color: "var(--court-text-strong)",
+                  color: "var(--court-text-soft)",
                 }}
               >
                 {tournament.city}
@@ -88,7 +90,7 @@ export function TournamentCard({ tournament }: { tournament: Tournament }) {
                 style={{
                   width: 16,
                   height: 16,
-                  color: "var(--court-text-muted)",
+                  color: "var(--court-text-soft)",
                   flexShrink: 0,
                 }}
                 strokeWidth={1.75}
@@ -99,7 +101,7 @@ export function TournamentCard({ tournament }: { tournament: Tournament }) {
                   fontWeight: 400,
                   fontSize: 14,
                   lineHeight: "18px",
-                  color: "var(--court-text-strong)",
+                  color: "var(--court-text-soft)",
                 }}
               >
                 {tournament.startDate} — {tournament.endDate}

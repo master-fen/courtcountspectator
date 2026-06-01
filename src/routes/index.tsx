@@ -3,6 +3,7 @@ import { Header } from "@/components/court-count/Header";
 import { PageTitle } from "@/components/court-count/PageTitle";
 import { SectionTabs } from "@/components/court-count/SectionTabs";
 import { TournamentCard } from "@/components/court-count/TournamentCard";
+import { SearchBar } from "@/components/court-count/SearchBar";
 import { CreateMatchButton } from "@/components/court-count/CreateMatchButton";
 import { mockTournaments } from "@/lib/mock-tournaments";
 
@@ -49,11 +50,12 @@ function Index() {
               tabs={["Текущие", "Завершенные"] as const}
               active="Текущие"
             />
+            <SearchBar />
           </div>
 
           <div
-            className="flex flex-col items-start"
-            style={{ width: 344, gap: 12, paddingBottom: 64 }}
+            className="flex flex-col items-start self-center"
+            style={{ width: 336, gap: 8, paddingBottom: 64 }}
           >
             {mockTournaments.map((t) => (
               <TournamentCard key={t.id} tournament={t} />
