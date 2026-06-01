@@ -74,6 +74,9 @@
   --color-court-text-soft: var(--court-text-soft);
   --color-court-text-muted: var(--court-text-muted);
   --color-court-on-primary: var(--court-on-primary);
+  --color-court-search-bg: var(--court-search-bg);
+  --color-court-trophy-bg: var(--court-trophy-bg);
+  --color-court-trophy-icon: var(--court-trophy-icon);
   --font-display: var(--font-display);
   --font-body: var(--font-body);
 }
@@ -128,6 +131,9 @@
   --court-text-soft: #525556;
   --court-text-muted: #393C3D;
   --court-on-primary: #FFFFFF;
+  --court-search-bg: #E1E8ED;
+  --court-trophy-bg: #EDF1F3;
+  --court-trophy-icon: #D1D9DF;
   --font-display: 'Roboto', system-ui, sans-serif;
   --font-body: 'Lato', system-ui, sans-serif;
 }
@@ -182,6 +188,9 @@
   --court-text-soft: #70818F;
   --court-text-muted: #70818F;
   --court-on-primary: #0D1316;
+  --court-search-bg: #0D1316;
+  --court-trophy-bg: #0D1316;
+  --court-trophy-icon: #3A484F;
 }
 
 @layer base {

@@ -1,24 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/court-count/Header";
-import { TournamentTitle } from "@/components/court-count/TournamentTitle";
+import { PageTitle } from "@/components/court-count/PageTitle";
 import { SectionTabs } from "@/components/court-count/SectionTabs";
-import { StatusPills } from "@/components/court-count/StatusPills";
-import { MatchCard } from "@/components/court-count/MatchCard";
+import { TournamentCard } from "@/components/court-count/TournamentCard";
+import { SearchBar } from "@/components/court-count/SearchBar";
 import { CreateMatchButton } from "@/components/court-count/CreateMatchButton";
-import { mockMatches } from "@/lib/mock-matches";
+import { mockTournaments } from "@/lib/mock-tournaments";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Court Count" },
+      { title: "Мои турниры — Court Count" },
       {
         name: "description",
-        content: "Трансляция теннисного счёта в реальном времени.",
+        content: "Список ваших теннисных турниров.",
       },
-      { property: "og:title", content: "Court Count" },
+      { property: "og:title", content: "Мои турниры — Court Count" },
       {
         property: "og:description",
-        content: "Трансляция теннисного счёта в реальном времени.",
+        content: "Список ваших теннисных турниров.",
       },
     ],
   }),
@@ -39,29 +39,31 @@ function Index() {
 
         <div
           className="flex flex-col items-center bg-court-surface"
-          style={{
-            width: 360,
-            padding: "12px 0 0",
-            gap: 12,
-          }}
+          style={{ width: 360, padding: "12px 0 0", gap: 12 }}
         >
-          <div className="flex flex-col items-center" style={{ width: 360, gap: 16 }}>
-            <TournamentTitle title='Первенство г. Люберцы на призы компании «Кухонный Двор»' />
-            <SectionTabs />
-            <StatusPills />
+          <div
+            className="flex flex-col items-center"
+            style={{ width: 360, gap: 16 }}
+          >
+            <PageTitle>Мои турниры</PageTitle>
+            <SectionTabs
+              tabs={["Текущие", "Завершенные"] as const}
+              active="Текущие"
+            />
+            <SearchBar />
           </div>
 
           <div
-            className="flex flex-col items-start"
-            style={{ width: 344, gap: 12, paddingBottom: 64 }}
+            className="flex flex-col items-start self-center"
+            style={{ width: 336, gap: 8, paddingBottom: 64 }}
           >
-            {mockMatches.map((m) => (
-              <MatchCard key={m.id} match={m} />
+            {mockTournaments.map((t) => (
+              <TournamentCard key={t.id} tournament={t} />
             ))}
           </div>
         </div>
 
-        <CreateMatchButton />
+        <CreateMatchButton label="Создать турнир" />
       </div>
     </div>
   );

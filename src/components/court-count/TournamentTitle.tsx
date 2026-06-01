@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 
 export function TournamentTitle({ title }: { title: string }) {
@@ -6,13 +7,13 @@ export function TournamentTitle({ title }: { title: string }) {
       className="flex flex-row items-start bg-court-surface"
       style={{ width: 360, padding: "0 12px", gap: 8 }}
     >
-      <button
-        type="button"
+      <Link
+        to="/"
         aria-label="Назад"
         style={{ color: "var(--court-text-strong)", marginTop: 2 }}
       >
         <ArrowLeft style={{ width: 24, height: 24 }} />
-      </button>
+      </Link>
       <h1
         style={{
           width: 336,

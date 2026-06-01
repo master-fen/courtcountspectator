@@ -1,7 +1,14 @@
-const tabs = ["Матчи", "Настройки", "Судьи"] as const;
-type Tab = (typeof tabs)[number];
+const defaultTabs = ["Матчи", "Настройки", "Судьи"] as const;
 
-export function SectionTabs({ active = "Матчи" as Tab }: { active?: Tab }) {
+export function SectionTabs<T extends string>({
+  tabs = defaultTabs as unknown as readonly T[],
+  active,
+}: {
+  tabs?: readonly T[];
+  active?: T;
+} = {}) {
+  const list = tabs;
+  const current = active ?? list[0];
   return (
     <div style={{ width: 360, padding: "0 12px" }}>
       <div
@@ -13,8 +20,8 @@ export function SectionTabs({ active = "Матчи" as Tab }: { active?: Tab }) 
           borderBottom: "0.5px solid var(--court-text-soft)",
         }}
       >
-        {tabs.map((tab) => {
-          const isActive = tab === active;
+        {list.map((tab) => {
+          const isActive = tab === current;
           return (
             <button
               key={tab}
