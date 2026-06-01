@@ -1,32 +1,53 @@
-# Компактность как на макете
+# Тёмная тема + переключатель
 
-Уменьшаем «воздух» вокруг и внутри карточек, чтобы плотность совпала с Figma 360×800.
+## 1. `src/styles.css`
 
-## Правки
+В `@theme inline` оставить токены `--color-court-*`, ссылающиеся на `--court-*`. Переименовать/добавить:
+- `--court-bg`, `--court-surface`, `--court-surface-muted`
+- `--court-card-header` (фон шапки карточки)
+- `--court-border`, `--court-primary`, `--court-primary-soft`
+- `--court-green`, `--court-logo-green`, `--court-logo-blue`
+- `--court-text`, `--court-text-strong`, `--court-text-soft`, `--court-text-muted`
+- `--court-on-primary`
 
-1. **`MatchCard.tsx` — тело матча**
-   - `padding: "16px 12px 16px"` → `padding: "16px 12px 0"` (нижний 0, как в Figma).
-   - Сохранить gap 12 между строками игроков.
-   - Если есть сообщение — оно идёт сразу под последней строкой без дополнительного отступа (плашка имеет свой `padding: 12 8`).
-   - Если сообщения нет — добавить `paddingBottom: 16` динамически, чтобы низ карточки не прилипал к рамке (соответствует высоте 112 из Figma: 32+16+18+12+18+16).
+`:root` (значения для светлой — без визуальных изменений):
+- bg `#DBE3E6`, surface `#FFFFFF`, surface-muted `#F2F6F7`
+- card-header `rgba(133,208,250,0.25)`, border `#929C9F`
+- primary `#4DB2EA`, primary-soft `rgba(133,208,250,0.25)`
+- green `#9CF73E`, logo-green `#9CF73E`, logo-blue `#85D0FA`
+- text `#1A1A1A`, text-strong `#202020`, text-soft `#525556`, text-muted `#393C3D`
+- on-primary `#FFFFFF`
 
-2. **`MatchCard.tsx` — шапка карточки**
-   - Уже корректно 32px. Без изменений.
+`.dark`:
+- bg `#0D1316`, surface `#182329`, surface-muted `#1E303A`
+- card-header `#1E303A`, border `#70818F`
+- primary `#4DB2EA` (оставляем), primary-soft `rgba(133,208,250,0.15)`
+- logo-green `#84EA1A`, logo-blue `#85D0FA`
+- text `#AEB4BA`, text-strong `#AEB4BA`, text-soft `#70818F`, text-muted `#70818F`
+- on-primary `#FFFFFF`
 
-3. **`routes/index.tsx` — внешняя колонка**
-   - Убрать `gap: 16` между блоком Title+Tabs+Pills и списком карточек — заменить на `gap: 12` (как gap между карточками в Figma `Frame 1321318256`).
-   - Между Title / Tabs / Pills оставить gap 16 как в Figma.
-   - Внутренний `padding-top: 12` контентного блока — оставить.
+## 2. Перевод компонентов на токены (без визуальных изменений в светлой)
 
-4. **`Header.tsx` — логотип**
-   - Два квадрата 32×32 без gap (общий размер 64×32, как в Figma). Сейчас 30×30 с gap 4.
+- `Header.tsx` — burger цвет: `var(--court-text-strong)`.
+- `Logo.tsx` — `fill` зелёного `var(--court-logo-green)`, голубого `var(--court-logo-blue)`.
+- `TournamentTitle.tsx` — стрелка и заголовок: `var(--court-text-strong)`.
+- `SectionTabs.tsx` — divider `var(--court-text-soft)`, active `var(--court-primary)`, inactive text `var(--court-text)`.
+- `StatusPills.tsx` — border/text active `var(--court-primary)`, inactive `var(--court-text)`.
+- `CreateMatchButton.tsx` — обёртка `bg-court-surface`, кнопка `background: var(--court-primary)`, текст `var(--court-on-primary)`.
+- `MatchCard.tsx`:
+  - article: border `var(--court-border)`, bg `var(--court-surface)`
+  - header: bg `var(--court-card-header)`
+  - dot: `var(--court-green)`, court text `var(--court-text-strong)`, stage `var(--court-text-muted)`, timer `var(--court-text-strong)`, chevron `var(--court-text-soft)`
+  - body: bg `var(--court-surface)`, текст игроков `var(--court-text-strong)`
+  - сет-бокс border `var(--court-text-muted)`, текст `var(--court-text)`
+  - message plate: bg `var(--court-surface-muted)`, иконка `var(--court-text-muted)`, текст `var(--court-text-soft)`
+  - TennisBallIcon: `fill="var(--court-text-strong)"`
+- `routes/index.tsx` — внешний фон `var(--court-bg)`, центральная колонка `bg-court-surface`.
 
-5. **Скролл / кнопка**
-   - Список карточек: `paddingBottom: 64` вместо 80 (40 кнопка + 12+12 паддинги плашки = 64 ровно).
-   - Кнопка остаётся fixed внизу.
+## 3. Переключатель темы
 
-## Что НЕ меняем
+- `src/hooks/use-theme.ts` — хук: state `"light" | "dark"`, `localStorage.theme`, тоглит класс `dark` на `document.documentElement`. Дефолт `light`.
+- `Header.tsx` — заменить раскладку на три слота: лого слева, кнопка-тогл (иконка `Sun`/`Moon`, 24×24) по центру, меню справа. Использовать `position: relative` + абсолютный центр, чтобы лого и меню остались на месте.
 
-- Размеры шрифтов, цвета, ширины 360/344/306.
-- Структуру файлов.
-- Поведение скролла и скрытие скроллбара.
+## Что не трогаем
+Размеры, паддинги, шрифты, layout карточек, mock-данные, скролл, фикс-кнопку.
