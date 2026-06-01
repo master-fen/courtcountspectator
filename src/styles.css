@@ -131,6 +131,9 @@
   --court-text-soft: #525556;
   --court-text-muted: #393C3D;
   --court-on-primary: #FFFFFF;
+  --court-search-bg: #E1E8ED;
+  --court-trophy-bg: #EDF1F3;
+  --court-trophy-icon: #D1D9DF;
   --font-display: 'Roboto', system-ui, sans-serif;
   --font-body: 'Lato', system-ui, sans-serif;
 }
