@@ -2,31 +2,6 @@ import { Link } from "@tanstack/react-router";
 import { Calendar, Trophy } from "lucide-react";
 import type { Tournament } from "@/lib/mock-tournaments";
 
-function RuFlag() {
-  return (
-    <span
-      aria-label="Россия"
-      className="inline-flex overflow-hidden"
-      style={{
-        width: 20,
-        height: 14,
-        borderRadius: 2,
-        flexShrink: 0,
-      }}
-    >
-      <span style={{ flex: 1, background: "#FFFFFF" }} />
-      <span
-        style={{
-          position: "absolute",
-          width: 20,
-          height: 14,
-          background:
-            "linear-gradient(to bottom, #FFFFFF 0 33.33%, #0039A6 33.33% 66.66%, #D52B1E 66.66% 100%)",
-        }}
-      />
-    </span>
-  );
-}
 
 export function TournamentCard({ tournament }: { tournament: Tournament }) {
   return (
