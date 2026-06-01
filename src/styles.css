@@ -108,9 +108,19 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
-  --court-blue: oklch(0.93 0.04 230);
-  --court-blue-strong: oklch(0.78 0.11 230);
-  --court-green: oklch(0.82 0.2 145);
+  --court-bg: #DBE3E6;
+  --court-surface: #FFFFFF;
+  --court-surface-muted: #F2F6F7;
+  --court-primary: #4DB2EA;
+  --court-primary-soft: rgba(133, 208, 250, 0.25);
+  --court-green: #9CF73E;
+  --court-on-surface: #1A1A1A;
+  --court-on-surface-strong: #202020;
+  --court-on-surface-300: #525556;
+  --court-on-surface-200: #393C3D;
+  --court-on-surface-400: #929C9F;
+  --font-display: 'Roboto', system-ui, sans-serif;
+  --font-body: 'Lato', system-ui, sans-serif;
 }
 
 .dark {
