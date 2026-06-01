@@ -10,7 +10,7 @@ export function SectionTabs({ active = "Матчи" as Tab }: { active?: Tab }) 
           width: 336,
           height: 31,
           gap: 8,
-          borderBottom: "0.5px solid #525556",
+          borderBottom: "0.5px solid var(--court-text-soft)",
         }}
       >
         {tabs.map((tab) => {
@@ -25,13 +25,13 @@ export function SectionTabs({ active = "Матчи" as Tab }: { active?: Tab }) 
                 height: 31,
                 marginBottom: "-0.5px",
                 borderBottom: isActive
-                  ? "2px solid #4DB2EA"
+                  ? "2px solid var(--court-primary)"
                   : "2px solid transparent",
                 fontFamily: "var(--font-body)",
                 fontWeight: isActive ? 600 : 400,
                 fontSize: 16,
                 lineHeight: "20px",
-                color: isActive ? "#4DB2EA" : "#1A1A1A",
+                color: isActive ? "var(--court-primary)" : "var(--court-text)",
               }}
             >
               {tab}

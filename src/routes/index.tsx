@@ -29,7 +29,7 @@ function Index() {
   return (
     <div
       className="min-h-screen w-full flex justify-center"
-      style={{ background: "#DBE3E6", fontFamily: "var(--font-body)" }}
+      style={{ background: "var(--court-bg)", fontFamily: "var(--font-body)" }}
     >
       <div
         className="flex flex-col items-center"
