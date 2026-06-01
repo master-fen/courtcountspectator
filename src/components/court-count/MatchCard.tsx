@@ -162,7 +162,7 @@ export function MatchCard({ match }: { match: Match }) {
       <div
         className="w-full flex flex-col"
         style={{
-          padding: match.message ? "16px 12px 0" : "16px 12px",
+          padding: "16px 12px",
           gap: 12,
           background: "#FEFEFE",
         }}
