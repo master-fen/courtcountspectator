@@ -188,6 +188,9 @@
   --court-text-soft: #70818F;
   --court-text-muted: #70818F;
   --court-on-primary: #0D1316;
+  --court-search-bg: #0D1316;
+  --court-trophy-bg: #0D1316;
+  --court-trophy-icon: #3A484F;
 }
 
 @layer base {
