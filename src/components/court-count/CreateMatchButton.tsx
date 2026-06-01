@@ -1,9 +1,23 @@
 export function CreateMatchButton() {
   return (
-    <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[420px] p-4 bg-background border-t border-border">
+    <div
+      className="flex items-center justify-center bg-court-surface"
+      style={{ width: 360, padding: "12px 0" }}
+    >
       <button
         type="button"
-        className="w-full py-4 rounded-xl bg-court-blue-strong text-white text-lg font-medium"
+        className="flex items-center justify-center"
+        style={{
+          width: 306,
+          height: 40,
+          borderRadius: 8,
+          background: "#4DB2EA",
+          color: "#FFFFFF",
+          fontFamily: "var(--font-body)",
+          fontWeight: 400,
+          fontSize: 16,
+          lineHeight: "20px",
+        }}
       >
         Создать матч
       </button>

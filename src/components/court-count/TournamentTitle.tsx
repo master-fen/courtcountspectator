@@ -2,15 +2,28 @@ import { ArrowLeft } from "lucide-react";
 
 export function TournamentTitle({ title }: { title: string }) {
   return (
-    <div className="px-4 pt-4 pb-2 flex items-start gap-3">
+    <div
+      className="flex flex-row items-start bg-court-surface"
+      style={{ width: 360, padding: "0 12px", gap: 8 }}
+    >
       <button
         type="button"
         aria-label="Назад"
-        className="mt-1 text-foreground"
+        style={{ color: "#202020", marginTop: 2 }}
       >
-        <ArrowLeft className="w-6 h-6" />
+        <ArrowLeft style={{ width: 24, height: 24 }} />
       </button>
-      <h1 className="text-xl font-bold leading-tight text-foreground">
+      <h1
+        style={{
+          width: 336,
+          fontFamily: "var(--font-display)",
+          fontWeight: 500,
+          fontSize: 18,
+          lineHeight: "21px",
+          color: "#202020",
+          margin: 0,
+        }}
+      >
         {title}
       </h1>
     </div>

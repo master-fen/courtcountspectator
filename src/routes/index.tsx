@@ -11,9 +11,15 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Court Count" },
-      { name: "description", content: "Трансляция теннисного счёта в реальном времени." },
+      {
+        name: "description",
+        content: "Трансляция теннисного счёта в реальном времени.",
+      },
       { property: "og:title", content: "Court Count" },
-      { property: "og:description", content: "Трансляция теннисного счёта в реальном времени." },
+      {
+        property: "og:description",
+        content: "Трансляция теннисного счёта в реальном времени.",
+      },
     ],
   }),
   component: Index,
@@ -21,19 +27,42 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="min-h-screen bg-background">
-      <div className="mx-auto w-full max-w-[420px] pb-28">
+    <div
+      className="min-h-screen w-full flex justify-center"
+      style={{ background: "#DBE3E6", fontFamily: "var(--font-body)" }}
+    >
+      <div
+        className="flex flex-col items-center"
+        style={{ width: 360, gap: 4 }}
+      >
         <Header />
-        <TournamentTitle title='Первенство г. Люберцы на призы компании «Кухонный Двор»' />
-        <SectionTabs />
-        <StatusPills />
-        <div className="px-4 space-y-3">
-          {mockMatches.map((m) => (
-            <MatchCard key={m.id} match={m} />
-          ))}
+
+        <div
+          className="flex flex-col items-center bg-court-surface"
+          style={{
+            width: 360,
+            padding: "12px 0 0",
+            gap: 16,
+          }}
+        >
+          <TournamentTitle title='Первенство г. Люберцы на призы компании «Кухонный Двор»' />
+          <div className="flex flex-col items-center" style={{ gap: 16, width: 360 }}>
+            <SectionTabs />
+            <StatusPills />
+          </div>
+
+          <div
+            className="flex flex-col items-start"
+            style={{ width: 344, gap: 12, paddingBottom: 16 }}
+          >
+            {mockMatches.map((m) => (
+              <MatchCard key={m.id} match={m} />
+            ))}
+          </div>
         </div>
+
+        <CreateMatchButton />
       </div>
-      <CreateMatchButton />
     </div>
   );
 }
