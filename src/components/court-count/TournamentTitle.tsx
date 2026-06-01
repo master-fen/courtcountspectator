@@ -9,7 +9,7 @@ export function TournamentTitle({ title }: { title: string }) {
       <button
         type="button"
         aria-label="Назад"
-        style={{ color: "#202020", marginTop: 2 }}
+        style={{ color: "var(--court-text-strong)", marginTop: 2 }}
       >
         <ArrowLeft style={{ width: 24, height: 24 }} />
       </button>
@@ -20,7 +20,7 @@ export function TournamentTitle({ title }: { title: string }) {
           fontWeight: 500,
           fontSize: 18,
           lineHeight: "21px",
-          color: "#202020",
+          color: "var(--court-text-strong)",
           margin: 0,
         }}
       >

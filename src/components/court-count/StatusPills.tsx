@@ -17,12 +17,14 @@ export function StatusPills({ active = "Активные" }: { active?: string }
               gap: 8,
               height: 28,
               borderRadius: 6,
-              border: isActive ? "1px solid #4DB2EA" : "1px solid transparent",
+              border: isActive
+                ? "1px solid var(--court-primary)"
+                : "1px solid transparent",
               fontFamily: "var(--font-body)",
               fontWeight: 400,
               fontSize: 14,
               lineHeight: "18px",
-              color: isActive ? "#4DB2EA" : "#1A1A1A",
+              color: isActive ? "var(--court-primary)" : "var(--court-text)",
               background: "transparent",
             }}
           >
