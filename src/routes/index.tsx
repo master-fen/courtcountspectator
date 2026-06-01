@@ -3,6 +3,7 @@ import { Header } from "@/components/court-count/Header";
 import { PageTitle } from "@/components/court-count/PageTitle";
 import { SectionTabs } from "@/components/court-count/SectionTabs";
 import { TournamentCard } from "@/components/court-count/TournamentCard";
+import { SearchBar } from "@/components/court-count/SearchBar";
 import { CreateMatchButton } from "@/components/court-count/CreateMatchButton";
 import { mockTournaments } from "@/lib/mock-tournaments";
 

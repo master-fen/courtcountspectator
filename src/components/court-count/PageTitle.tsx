@@ -11,9 +11,10 @@ export function PageTitle({ children }: { children: ReactNode }) {
           width: 336,
           fontFamily: "var(--font-display)",
           fontWeight: 500,
-          fontSize: 22,
+          fontSize: 20,
           lineHeight: "26px",
-          color: "var(--court-text-strong)",
+          letterSpacing: "0.02em",
+          color: "var(--court-text)",
           margin: 0,
         }}
       >
