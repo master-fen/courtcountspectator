@@ -209,3 +209,9 @@ body::-webkit-scrollbar { display: none; width: 0; height: 0; }
 .animate-timer-blink {
   animation: timer-blink 1s steps(1, end) infinite;
 }
+
+@keyframes btn-pulse-ring {
+  0%   { box-shadow: 0 0 0 0 color-mix(in oklab, var(--court-primary) 60%, transparent); }
+  70%  { box-shadow: 0 0 0 14px color-mix(in oklab, var(--court-primary) 0%, transparent); }
+  100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--court-primary) 0%, transparent); }
+}
