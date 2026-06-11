@@ -118,6 +118,7 @@
   --court-surface-muted: #F2F6F7;
   --court-card-header: rgba(133, 208, 250, 0.25);
   --court-border: #929C9F;
+  --court-card-border: rgba(77, 178, 234, 0.5);
   --court-primary: #4DB2EA;
   --court-primary-soft: rgba(133, 208, 250, 0.25);
   --court-green: #9CF73E;
@@ -172,6 +173,7 @@
   --court-surface-muted: #0D1316;
   --court-card-header: rgba(132, 234, 26, 0.25);
   --court-border: #70818F;
+  --court-card-border: rgba(156, 247, 62, 0.5);
   --court-primary: #84EA1A;
   --court-primary-soft: rgba(132, 234, 26, 0.15);
   --court-green: #84EA1A;
