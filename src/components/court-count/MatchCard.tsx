@@ -90,7 +90,7 @@ export function MatchCard({ match }: { match: Match }) {
       className="flex flex-col items-start overflow-hidden"
       style={{
         width: 344,
-        border: "0.5px solid var(--court-border)",
+        border: "0.5px solid var(--court-card-border)",
         borderRadius: 6,
         background: "var(--court-surface)",
       }}

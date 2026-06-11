@@ -1,7 +1,9 @@
-В `src/styles.css` поменяю keyframes `timer-blink` со «затухания» на дискретное переключение:
+## Изменения
 
-- Уберу плавную интерполяцию opacity.
-- Использую `animation-timing-function: steps(1, end)` (или прямые ступени в keyframes) так, чтобы двоеточие было видно половину секунды и скрыто половину секунды без плавности.
-- Длительность оставлю 1s, infinite.
+**`src/styles.css`** — добавить новую переменную `--court-card-border` в `:root` и `.dark`:
+- Light: `rgba(77, 178, 234, 0.5)` (#4DB2EA, 50%)
+- Dark: `rgba(156, 247, 62, 0.5)` (#9CF73E, 50%)
 
-Больше ничего не трогаю.
+**`src/components/court-count/MatchCard.tsx`** — у `<article>` заменить `border: "0.5px solid var(--court-border)"` на `border: "0.5px solid var(--court-card-border)"`.
+
+Других файлов не трогаю.
