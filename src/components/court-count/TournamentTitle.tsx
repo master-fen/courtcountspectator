@@ -2,20 +2,33 @@ import { ArrowLeft } from "lucide-react";
 
 export function TournamentTitle({
   title,
-  compact = false,
+  progress = 0,
 }: {
   title: string;
-  compact?: boolean;
+  /** 0 = fully expanded (2 lines), 1 = fully compact (1 line) */
+  progress?: number;
 }) {
+  const p = Math.max(0, Math.min(1, progress));
+
+  const height = 42 - 21 * p; // 42 -> 21
+  const fullOpacity = Math.max(0, 1 - p * 1.4);
+  const compactOpacity = Math.max(0, (p - 0.2) / 0.8);
+  const fullTranslate = -10 * p;
+  const compactTranslate = 10 * (1 - p);
+
   return (
     <div
-      className={`flex flex-row bg-court-surface w-full ${compact ? "items-center" : "items-start"}`}
+      className="flex flex-row bg-court-surface w-full items-start"
       style={{ padding: "0 12px", gap: 8 }}
     >
       <button
         type="button"
         aria-label="Назад"
-        style={{ color: "var(--court-text-strong)", marginTop: compact ? 0 : 2, flexShrink: 0 }}
+        style={{
+          color: "var(--court-text-strong)",
+          marginTop: 2 * (1 - p),
+          flexShrink: 0,
+        }}
       >
         <ArrowLeft style={{ width: 24, height: 24 }} />
       </button>
@@ -23,8 +36,7 @@ export function TournamentTitle({
         className="min-w-0 flex-1 relative"
         style={{
           overflow: "hidden",
-          height: compact ? 21 : 42,
-          transition: "height 300ms cubic-bezier(0.4, 0, 0.2, 1)",
+          height,
           willChange: "height",
         }}
       >
@@ -35,11 +47,9 @@ export function TournamentTitle({
             top: 0,
             left: 0,
             width: "100%",
-            opacity: compact ? 0 : 1,
-            transform: `translateY(${compact ? -12 : 0}px)`,
-            transition:
-              "opacity 300ms cubic-bezier(0.4, 0, 0.2, 1), transform 300ms cubic-bezier(0.4, 0, 0.2, 1)",
-            pointerEvents: compact ? "none" : "auto",
+            opacity: fullOpacity,
+            transform: `translateY(${fullTranslate}px)`,
+            pointerEvents: p > 0.5 ? "none" : "auto",
             willChange: "opacity, transform",
           }}
         >
@@ -71,11 +81,9 @@ export function TournamentTitle({
             width: "100%",
             height: 21,
             overflow: "hidden",
-            opacity: compact ? 1 : 0,
-            transform: `translateY(${compact ? 0 : 12}px)`,
-            transition:
-              "opacity 300ms cubic-bezier(0.4, 0, 0.2, 1), transform 300ms cubic-bezier(0.4, 0, 0.2, 1)",
-            pointerEvents: compact ? "auto" : "none",
+            opacity: compactOpacity,
+            transform: `translateY(${compactTranslate}px)`,
+            pointerEvents: p > 0.5 ? "auto" : "none",
             willChange: "opacity, transform",
           }}
         >
