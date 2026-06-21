@@ -146,9 +146,12 @@ export function MatchCard({ match }: { match: Match }) {
               width: 10,
               height: 10,
               borderRadius: 9999,
-              background: isCompleted
-                ? "var(--court-completed-dot)"
-                : "var(--court-green)",
+              background:
+                match.status === "completed"
+                  ? "var(--court-completed-dot)"
+                  : match.status === "paused"
+                    ? "var(--court-paused-dot)"
+                    : "var(--court-green)",
               display: "inline-block",
             }}
           />

@@ -19,7 +19,7 @@ export type Player = {
   sets: SetScore[];
 };
 
-export type MatchStatus = "active" | "completed";
+export type MatchStatus = "active" | "paused" | "completed";
 
 export type Match = {
   id: string;
@@ -72,6 +72,26 @@ export const mockMatches: Match[] = [
         sets: [{ score: 6 }, { score: 3 }],
       },
     ],
+  },
+  {
+    id: "p1",
+    court: "Корт 3",
+    stage: "Четвертьфинал",
+    timer: "01:05",
+    status: "paused",
+    players: [
+      {
+        name: "Сафинов Марат",
+        game: "30",
+        sets: [{ score: 4 }, { score: 3 }],
+      },
+      {
+        name: "Курниковский Артём",
+        game: "30",
+        sets: [{ score: 6 }, { score: 2 }],
+      },
+    ],
+    message: "Пауза: дождь. Матч возобновится после высыхания корта.",
   },
   {
     id: "m3",

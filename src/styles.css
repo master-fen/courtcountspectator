@@ -77,6 +77,7 @@
   --color-court-completed-header: var(--court-completed-header);
   --color-court-completed-border: var(--court-completed-border);
   --color-court-completed-dot: var(--court-completed-dot);
+  --color-court-paused-dot: var(--court-paused-dot);
   --font-display: var(--font-display);
   --font-body: var(--font-body);
 }
@@ -135,6 +136,7 @@
   --court-completed-header: #E1E8ED;
   --court-completed-border: #D1D9DF;
   --court-completed-dot: #929C9F;
+  --court-paused-dot: #FFBA45;
   --font-display: 'Roboto', system-ui, sans-serif;
   --font-body: 'Lato', system-ui, sans-serif;
 }
@@ -193,6 +195,7 @@
   --court-completed-header: #232E34;
   --court-completed-border: #2A363D;
   --court-completed-dot: #70818F;
+  --court-paused-dot: #FFBA45;
 }
 
 @layer base {

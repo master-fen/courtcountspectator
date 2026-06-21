@@ -32,7 +32,7 @@ function Index() {
   const [filter, setFilter] = useState<StatusFilter>("Все");
 
   const matches = useMemo(() => {
-    const active = mockMatches.filter((m) => m.status === "active");
+    const active = mockMatches.filter((m) => m.status !== "completed");
     const completed = mockMatches.filter((m) => m.status === "completed");
     if (filter === "Активные") return active;
     if (filter === "Завершённые") return completed;
