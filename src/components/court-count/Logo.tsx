@@ -1,4 +1,4 @@
-export function Logo({ height = 32 }: { height?: number }) {
+export function Logo({ height = 32, className }: { height?: number; className?: string }) {
   return (
     <svg
       width={(height * 172) / 90.53}
