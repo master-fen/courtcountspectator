@@ -1,7 +1,11 @@
-const tabs = ["Матчи", "Настройки", "Судьи"] as const;
-type Tab = (typeof tabs)[number];
+import { useAuth } from "@/hooks/use-auth";
+
+const allTabs = ["Матчи", "Настройки", "Судьи"] as const;
+type Tab = (typeof allTabs)[number];
 
 export function SectionTabs({ active = "Матчи" as Tab }: { active?: Tab }) {
+  const { isAuthed } = useAuth();
+  const tabs = isAuthed ? allTabs : (["Матчи"] as readonly Tab[]);
   return (
     <div style={{ width: 360, padding: "0 12px" }}>
       <div
