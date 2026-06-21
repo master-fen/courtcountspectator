@@ -85,7 +85,7 @@ function Index() {
           <Header />
           <TournamentTitle
             title='Первенство г. Люберцы на призы компании «Кухонный Двор»'
-            compact={scrolled}
+            progress={scrollProgress}
           />
           <SectionTabs />
           <StatusPills active={filter} onChange={setFilter} />
