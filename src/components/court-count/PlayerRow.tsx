@@ -33,15 +33,13 @@ export function PlayerRow({
     <div
       className="flex flex-row items-center justify-between"
       style={{ gap: 12, height: 18 }}
-    ></div>
-  );
-}
+    >
       <div className="flex items-center min-w-0" style={{ gap: 8 }}>
         <span
           className="truncate"
           style={{
             fontFamily: "var(--font-body)",
-            fontWeight: 400,
+            fontWeight: bold ? 700 : 400,
             fontSize: 14,
             lineHeight: "18px",
             color: "var(--court-text-strong)",
