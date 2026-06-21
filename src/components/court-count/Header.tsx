@@ -1,9 +1,11 @@
-import { Menu, Moon, Sun } from "lucide-react";
+import { LogIn, LogOut, Menu, Moon, Sun } from "lucide-react";
 import { Logo } from "./Logo";
 import { useTheme } from "@/hooks/use-theme";
+import { useAuth } from "@/hooks/use-auth";
 
 export function Header() {
   const { theme, toggle } = useTheme();
+  const { isAuthed, toggle: toggleAuth } = useAuth();
   return (
     <header
       className="relative flex flex-row items-center justify-between bg-court-surface"
@@ -28,13 +30,27 @@ export function Header() {
           <Moon style={{ width: 24, height: 24 }} />
         )}
       </button>
-      <button
-        type="button"
-        aria-label="Меню"
-        style={{ color: "var(--court-text-strong)" }}
-      >
-        <Menu style={{ width: 24, height: 24 }} />
-      </button>
+      <div className="flex flex-row items-center" style={{ gap: 12 }}>
+        <button
+          type="button"
+          onClick={toggleAuth}
+          aria-label={isAuthed ? "Выйти" : "Войти"}
+          style={{ color: "var(--court-text-strong)" }}
+        >
+          {isAuthed ? (
+            <LogOut style={{ width: 24, height: 24 }} />
+          ) : (
+            <LogIn style={{ width: 24, height: 24 }} />
+          )}
+        </button>
+        <button
+          type="button"
+          aria-label="Меню"
+          style={{ color: "var(--court-text-strong)" }}
+        >
+          <Menu style={{ width: 24, height: 24 }} />
+        </button>
+      </div>
     </header>
   );
 }

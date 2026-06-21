@@ -6,6 +6,7 @@ import { StatusPills } from "@/components/court-count/StatusPills";
 import { MatchCard } from "@/components/court-count/MatchCard";
 import { CreateMatchButton } from "@/components/court-count/CreateMatchButton";
 import { mockMatches } from "@/lib/mock-matches";
+import { useAuth } from "@/hooks/use-auth";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -26,6 +27,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const { isAuthed } = useAuth();
   return (
     <div
       className="min-h-screen w-full flex justify-center"
@@ -53,7 +55,7 @@ function Index() {
 
           <div
             className="flex flex-col items-start"
-            style={{ width: 344, gap: 12, paddingBottom: 64 }}
+            style={{ width: 344, gap: 12, paddingBottom: isAuthed ? 64 : 12 }}
           >
             {mockMatches.map((m) => (
               <MatchCard key={m.id} match={m} />
@@ -61,7 +63,7 @@ function Index() {
           </div>
         </div>
 
-        <CreateMatchButton />
+        {isAuthed && <CreateMatchButton />}
       </div>
     </div>
   );
