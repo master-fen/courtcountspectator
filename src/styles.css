@@ -195,6 +195,7 @@
   --court-completed-header: #232E34;
   --court-completed-border: #2A363D;
   --court-completed-dot: #70818F;
+  --court-paused-dot: #FFBA45;
 }
 
 @layer base {
