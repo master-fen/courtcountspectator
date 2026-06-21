@@ -9,13 +9,13 @@ export function TournamentTitle({
 }) {
   return (
     <div
-      className="flex flex-row items-start bg-court-surface w-full"
+      className={`flex flex-row bg-court-surface w-full ${compact ? "items-center" : "items-start"}`}
       style={{ padding: "0 12px", gap: 8 }}
     >
       <button
         type="button"
         aria-label="Назад"
-        style={{ color: "var(--court-text-strong)", marginTop: 2, flexShrink: 0 }}
+        style={{ color: "var(--court-text-strong)", marginTop: compact ? 0 : 2, flexShrink: 0 }}
       >
         <ArrowLeft style={{ width: 24, height: 24 }} />
       </button>
