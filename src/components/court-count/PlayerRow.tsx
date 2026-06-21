@@ -22,10 +22,12 @@ export function PlayerRow({
   player,
   maxSets,
   showGame,
+  bold = false,
 }: {
   player: Player;
   maxSets: number;
   showGame: boolean;
+  bold?: boolean;
 }) {
   return (
     <div
@@ -37,7 +39,7 @@ export function PlayerRow({
           className="truncate"
           style={{
             fontFamily: "var(--font-body)",
-            fontWeight: 400,
+            fontWeight: bold ? 700 : 400,
             fontSize: 14,
             lineHeight: "18px",
             color: "var(--court-text-strong)",

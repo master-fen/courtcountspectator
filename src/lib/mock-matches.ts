@@ -33,6 +33,8 @@ export type Match = {
   startTime?: string;
   /** Time when match was paused, e.g. "13:45". */
   pausedAt?: string;
+  /** Match end time (completed matches), e.g. "16:43". */
+  endTime?: string;
 };
 
 export const mockMatches: Match[] = [
@@ -192,6 +194,8 @@ export const mockMatches: Match[] = [
     stage: "Полуфинал",
     timer: "01:14",
     status: "completed",
+    startTime: "13:00",
+    endTime: "14:14",
     players: [
       {
         name: "Слипкнотов Игорь",
@@ -211,6 +215,8 @@ export const mockMatches: Match[] = [
     stage: "Четвертьфинал",
     timer: "02:31",
     status: "completed",
+    startTime: "14:00",
+    endTime: "16:31",
     players: [
       {
         name: "Джоковичев Николай",
@@ -231,6 +237,8 @@ export const mockMatches: Match[] = [
     stage: "Полуфинал",
     timer: "00:48",
     status: "completed",
+    startTime: "15:00",
+    endTime: "15:48",
     players: [
       {
         name: "Тайбрекова Варвара",
@@ -250,6 +258,8 @@ export const mockMatches: Match[] = [
     stage: "Финал",
     timer: "02:12",
     status: "completed",
+    startTime: "13:00",
+    endTime: "15:12",
     players: [
       {
         name: "Бэкхендов Пётр",
@@ -269,6 +279,8 @@ export const mockMatches: Match[] = [
     stage: "Матч за 3 место",
     timer: "00:56",
     status: "completed",
+    startTime: "16:00",
+    endTime: "16:56",
     players: [
       {
         name: "Уимблдонов Игорь",
