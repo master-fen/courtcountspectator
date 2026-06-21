@@ -50,40 +50,61 @@ function PlayerRow({
         {player.isServing && <TennisBallIcon size={10} />}
       </div>
       <div className="flex flex-row items-center" style={{ gap: 19 }}>
-        <span
-          className="flex items-center justify-center"
-          style={{
-            width: 20,
-            height: 20,
-            borderRadius: 2,
-            border: "0.5px solid var(--court-text-muted)",
-            fontFamily: "var(--font-body)",
-            fontWeight: 400,
-            fontSize: 14,
-            lineHeight: "18px",
-            color: "var(--court-text)",
-            padding: 2,
-          }}
-        >
-          {player.game}
-        </span>
+        {showGame && (
+          <span
+            className="flex items-center justify-center"
+            style={{
+              width: 20,
+              height: 20,
+              borderRadius: 2,
+              border: "0.5px solid var(--court-text-muted)",
+              fontFamily: "var(--font-body)",
+              fontWeight: 400,
+              fontSize: 14,
+              lineHeight: "18px",
+              color: "var(--court-text)",
+              padding: 2,
+            }}
+          >
+            {player.game}
+          </span>
+        )}
         <div className="flex flex-row items-center" style={{ gap: 12 }}>
-          {Array.from({ length: maxSets }).map((_, i) => (
-            <span
-              key={i}
-              className="text-center"
-              style={{
-                width: 9,
-                fontFamily: "var(--font-body)",
-                fontWeight: 400,
-                fontSize: 14,
-                lineHeight: "18px",
-                color: "var(--court-text-strong)",
-              }}
-            >
-              {player.sets[i] ?? ""}
-            </span>
-          ))}
+          {Array.from({ length: maxSets }).map((_, i) => {
+            const s = player.sets[i];
+            return (
+              <span
+                key={i}
+                className="text-center"
+                style={{
+                  position: "relative",
+                  width: 9,
+                  fontFamily: "var(--font-body)",
+                  fontWeight: 400,
+                  fontSize: 14,
+                  lineHeight: "18px",
+                  color: "var(--court-text-strong)",
+                }}
+              >
+                {s ? s.score : ""}
+                {s?.tb !== undefined && (
+                  <sup
+                    style={{
+                      position: "absolute",
+                      top: -2,
+                      left: "100%",
+                      marginLeft: 1,
+                      fontSize: 9,
+                      lineHeight: 1,
+                      color: "var(--court-text-muted)",
+                    }}
+                  >
+                    {s.tb}
+                  </sup>
+                )}
+              </span>
+            );
+          })}
         </div>
       </div>
     </div>
