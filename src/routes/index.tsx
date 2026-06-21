@@ -70,10 +70,9 @@ function Index() {
       className="min-h-screen w-full flex justify-center"
       style={{ background: "var(--court-bg)", fontFamily: "var(--font-body)" }}
     >
-      <div
-        className="flex flex-col items-stretch w-full"
-        style={{ gap: 4 }}
-      >
+        <div
+          className="flex flex-col items-stretch w-full"
+        >
         <div
           className="flex flex-col items-stretch bg-court-surface w-full"
           style={{
