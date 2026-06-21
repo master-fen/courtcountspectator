@@ -32,20 +32,27 @@ function Index() {
   const { isAuthed } = useAuth();
   const [filter, setFilter] = useState<StatusFilter>("Все");
   const [selected, setSelected] = useState<Match | null>(null);
-  const [scrolled, setScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
-    const onScroll = () => {
+    const START = 0;
+    const END = 48;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
       const y = window.scrollY;
-      setScrolled((prev) => {
-        if (prev && y < 5) return false;
-        if (!prev && y > 20) return true;
-        return prev;
-      });
+      const p = Math.max(0, Math.min(1, (y - START) / (END - START)));
+      setScrollProgress(p);
     };
-    onScroll();
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   const matches = useMemo(() => {
