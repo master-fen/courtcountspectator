@@ -1,8 +1,9 @@
+import { useState, useMemo } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/court-count/Header";
 import { TournamentTitle } from "@/components/court-count/TournamentTitle";
 import { SectionTabs } from "@/components/court-count/SectionTabs";
-import { StatusPills } from "@/components/court-count/StatusPills";
+import { StatusPills, type StatusFilter } from "@/components/court-count/StatusPills";
 import { MatchCard } from "@/components/court-count/MatchCard";
 import { CreateMatchButton } from "@/components/court-count/CreateMatchButton";
 import { mockMatches } from "@/lib/mock-matches";
@@ -28,6 +29,16 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const { isAuthed } = useAuth();
+  const [filter, setFilter] = useState<StatusFilter>("Все");
+
+  const matches = useMemo(() => {
+    const active = mockMatches.filter((m) => m.status === "active");
+    const completed = mockMatches.filter((m) => m.status === "completed");
+    if (filter === "Активные") return active;
+    if (filter === "Завершённые") return completed;
+    return [...active, ...completed];
+  }, [filter]);
+
   return (
     <div
       className="min-h-screen w-full flex justify-center"
@@ -49,14 +60,14 @@ function Index() {
           <div className="flex flex-col items-stretch w-full" style={{ gap: 12 }}>
             <TournamentTitle title='Первенство г. Люберцы на призы компании «Кухонный Двор»' />
             <SectionTabs />
-            <StatusPills />
+            <StatusPills active={filter} onChange={setFilter} />
           </div>
 
           <div
             className="flex flex-col items-stretch w-full"
             style={{ gap: 12, padding: `0 12px ${isAuthed ? 64 : 12}px` }}
           >
-            {mockMatches.map((m) => (
+            {matches.map((m) => (
               <MatchCard key={m.id} match={m} />
             ))}
           </div>
