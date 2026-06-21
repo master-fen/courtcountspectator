@@ -29,6 +29,8 @@ export type Match = {
   status: MatchStatus;
   players: [Player, Player];
   message?: string;
+  /** Match start time, e.g. "13:00". */
+  startTime?: string;
 };
 
 export const mockMatches: Match[] = [
