@@ -172,7 +172,13 @@ export function MatchDetailsSheet({
           {/* Players */}
           <div className="flex flex-col w-full" style={{ gap: 12 }}>
             {match.players.map((p, i) => (
-              <PlayerRow key={i} player={p} maxSets={maxSets} showGame={!isCompleted} />
+              <PlayerRow
+                key={i}
+                player={p}
+                maxSets={maxSets}
+                showGame={!isCompleted}
+                bold={i === winnerIndex}
+              />
             ))}
           </div>
 
@@ -230,6 +236,19 @@ export function MatchDetailsSheet({
                 Начало матча: {match.startTime}
               </span>
             )}
+            {isCompleted && match.endTime && (
+              <span
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontWeight: 400,
+                  fontSize: 14,
+                  lineHeight: "18px",
+                  color: "var(--court-text-soft)",
+                }}
+              >
+                Конец матча: {match.endTime}
+              </span>
+            )}
             <span
               style={{
                 fontFamily: "var(--font-body)",
@@ -239,7 +258,12 @@ export function MatchDetailsSheet({
                 color: "var(--court-text-soft)",
               }}
             >
-              Продолжительность: <BlinkingTimer value={match.timer} blink={isActive} />
+              Продолжительность:{" "}
+              {isCompleted ? (
+                formatDuration(match.timer)
+              ) : (
+                <BlinkingTimer value={match.timer} blink={isActive} />
+              )}
             </span>
             {isPaused && match.pausedAt && (
               <span
