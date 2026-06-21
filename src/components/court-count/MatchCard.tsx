@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { ChevronRight, Megaphone } from "lucide-react";
+import type { SetScore } from "@/lib/mock-matches";
 import type { Match, Player } from "@/lib/mock-matches";
 
 function TennisBallIcon({ size = 10 }: { size?: number }) {
