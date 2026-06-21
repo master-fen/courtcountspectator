@@ -9,7 +9,7 @@ export function Header() {
     <>
       <header
         className="relative flex flex-row items-center justify-between bg-court-surface w-full h-12 md:h-16 py-2 md:py-4 px-6"
-        style={{ gap: 12 }}
+        style={{ gap: 12, borderBottom: "1px solid var(--court-border)" }}
       >
         <Logo className="h-6 md:h-8 w-auto" />
         <button
