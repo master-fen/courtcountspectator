@@ -2,11 +2,12 @@ import { useState, useMemo, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/court-count/Header";
 import { TournamentTitle } from "@/components/court-count/TournamentTitle";
-import { SectionTabs } from "@/components/court-count/SectionTabs";
+import { SectionTabs, type Tab } from "@/components/court-count/SectionTabs";
 import { StatusPills, type StatusFilter } from "@/components/court-count/StatusPills";
 import { MatchCard } from "@/components/court-count/MatchCard";
 import { CreateMatchButton } from "@/components/court-count/CreateMatchButton";
 import { MatchDetailsSheet } from "@/components/court-count/MatchDetailsSheet";
+import { InfoTab } from "@/components/court-count/InfoTab";
 import { mockMatches, type Match } from "@/lib/mock-matches";
 import { useAuth } from "@/hooks/use-auth";
 
@@ -33,6 +34,7 @@ function Index() {
   const [filter, setFilter] = useState<StatusFilter>("Все");
   const [selected, setSelected] = useState<Match | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [tab, setTab] = useState<Tab>("Матчи");
 
   useEffect(() => {
     const START = 0;
