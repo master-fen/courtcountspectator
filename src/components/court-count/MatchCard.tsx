@@ -8,7 +8,7 @@ export function MatchCard({ match, onOpen }: { match: Match; onOpen?: () => void
 
   const isCompleted = match.status === "completed";
   const isActive = match.status === "active";
-  const isClickable = !isCompleted && !!onOpen;
+  const isClickable = !!onOpen;
 
   return (
     <article
