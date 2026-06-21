@@ -44,6 +44,8 @@ export function MatchDetailsSheet({
 
   const maxSets = Math.max(...match.players.map((p) => p.sets.length));
   const isActive = match.status === "active";
+  const isPaused = match.status === "paused";
+  const isCompleted = match.status === "completed";
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
