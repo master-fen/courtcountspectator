@@ -74,6 +74,9 @@
   --color-court-text-soft: var(--court-text-soft);
   --color-court-text-muted: var(--court-text-muted);
   --color-court-on-primary: var(--court-on-primary);
+  --color-court-completed-header: var(--court-completed-header);
+  --color-court-completed-border: var(--court-completed-border);
+  --color-court-completed-dot: var(--court-completed-dot);
   --font-display: var(--font-display);
   --font-body: var(--font-body);
 }
@@ -129,6 +132,9 @@
   --court-text-soft: #525556;
   --court-text-muted: #393C3D;
   --court-on-primary: #FFFFFF;
+  --court-completed-header: #E1E8ED;
+  --court-completed-border: #D1D9DF;
+  --court-completed-dot: #929C9F;
   --font-display: 'Roboto', system-ui, sans-serif;
   --font-body: 'Lato', system-ui, sans-serif;
 }
@@ -184,6 +190,9 @@
   --court-text-soft: #70818F;
   --court-text-muted: #70818F;
   --court-on-primary: #0D1316;
+  --court-completed-header: #232E34;
+  --court-completed-border: #2A363D;
+  --court-completed-dot: #70818F;
 }
 
 @layer base {
