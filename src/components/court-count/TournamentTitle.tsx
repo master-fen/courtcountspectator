@@ -40,8 +40,8 @@ export function TournamentTitle({
           margin: 0,
           overflow: "hidden",
           textOverflow: "ellipsis",
-          whiteSpace: compact ? "nowrap" : "normal",
-          transition: "font-size 200ms, line-height 200ms",
+          whiteSpace: "nowrap",
+          transition: "font-size 150ms ease, line-height 150ms ease",
         }}
       >
         {title}

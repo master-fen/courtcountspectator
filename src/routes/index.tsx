@@ -33,7 +33,7 @@ function Index() {
   const { isAuthed } = useAuth();
   const [filter, setFilter] = useState<StatusFilter>("Все");
   const [selected, setSelected] = useState<Match | null>(null);
-  const compact = useScrolled(16);
+  const compact = useScrolled(48, 8);
 
   const matches = useMemo(() => {
     const active = mockMatches.filter((m) => m.status !== "completed");
@@ -60,7 +60,8 @@ function Index() {
             gap: compact ? 4 : 12,
             boxShadow: compact ? "0 2px 8px rgba(0,0,0,0.06)" : "none",
             borderBottom: compact ? "0.5px solid var(--court-border)" : "0.5px solid transparent",
-            transition: "all 200ms ease",
+            transition: "padding 150ms ease, gap 150ms ease, box-shadow 150ms ease, border-color 150ms ease",
+            willChange: "padding, gap",
           }}
         >
           <Header compact={compact} />
