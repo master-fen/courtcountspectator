@@ -87,11 +87,9 @@ export function TournamentTitle({
               lineHeight: "21px",
               color: "var(--court-text-strong)",
               margin: 0,
-              display: "-webkit-box",
-              WebkitBoxOrient: "vertical",
-              WebkitLineClamp: 2,
+              whiteSpace: "nowrap",
               overflow: "hidden",
-              wordBreak: "break-word",
+              textOverflow: "ellipsis",
             }}
           >
             {title}
