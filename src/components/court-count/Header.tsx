@@ -15,10 +15,7 @@ export function Header({ compact = false }: { compact?: boolean }) {
           padding: compact ? "4px 16px" : "8px 24px",
         }}
       >
-        <Logo
-          className="w-auto transition-all duration-200"
-          style={{ height: compact ? 20 : 24 }}
-        />
+        <Logo height={compact ? 20 : 24} className="w-auto" />
         <button
           type="button"
           aria-label="Меню"

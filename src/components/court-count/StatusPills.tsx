@@ -3,9 +3,11 @@ export type StatusFilter = "Все" | "Активные" | "Завершённы
 export function StatusPills({
   active = "Все",
   onChange,
+  compact = false,
 }: {
   active?: StatusFilter;
   onChange?: (value: StatusFilter) => void;
+  compact?: boolean;
 }) {
   const pills: StatusFilter[] = ["Все", "Активные", "Завершённые"];
   return (
@@ -20,19 +22,19 @@ export function StatusPills({
             key={pill}
             type="button"
             onClick={() => onChange?.(pill)}
-            className="flex items-center"
+            className="flex items-center transition-all duration-200"
             style={{
-              padding: "8px 12px",
+              padding: compact ? "4px 10px" : "8px 12px",
               gap: 8,
-              height: 28,
+              height: compact ? 24 : 28,
               borderRadius: 6,
               border: isActive
                 ? "1px solid var(--court-primary)"
                 : "1px solid transparent",
               fontFamily: "var(--font-body)",
               fontWeight: 400,
-              fontSize: 14,
-              lineHeight: "18px",
+              fontSize: compact ? 12 : 14,
+              lineHeight: compact ? "16px" : "18px",
               color: isActive ? "var(--court-primary)" : "var(--court-text)",
               background: "transparent",
             }}
