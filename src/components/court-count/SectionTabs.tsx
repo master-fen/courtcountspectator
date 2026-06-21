@@ -11,7 +11,7 @@ export function SectionTabs({ active = "Матчи" as Tab }: { active?: Tab }) 
       <div
         className="flex flex-row items-center w-full"
         style={{
-          height: 31,
+          height: 28,
           gap: 8,
           borderBottom: "0.5px solid var(--court-text-soft)",
         }}
@@ -24,8 +24,8 @@ export function SectionTabs({ active = "Матчи" as Tab }: { active?: Tab }) 
               type="button"
               className="flex items-center justify-center"
               style={{
-                padding: "2px 8px",
-                height: 31,
+                padding: "4px 10px",
+                height: 28,
                 marginBottom: "-0.5px",
                 borderBottom: isActive
                   ? "2px solid var(--court-primary)"
