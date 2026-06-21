@@ -24,8 +24,8 @@ export function TournamentTitle({
         style={{
           fontFamily: "var(--font-display)",
           fontWeight: 500,
-          fontSize: compact ? 15 : 18,
-          lineHeight: compact ? "20px" : "21px",
+          fontSize: 18,
+          lineHeight: "21px",
           color: "var(--court-text-strong)",
           margin: 0,
           display: "-webkit-box",
@@ -33,7 +33,7 @@ export function TournamentTitle({
           WebkitLineClamp: compact ? 1 : 2,
           overflow: "hidden",
           textOverflow: "ellipsis",
-          transition: "font-size 200ms ease, line-height 200ms ease",
+          transition: "-webkit-line-clamp 200ms ease",
           wordBreak: "break-word",
         }}
       >
