@@ -1,8 +1,9 @@
+import { useState, useMemo } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/court-count/Header";
 import { TournamentTitle } from "@/components/court-count/TournamentTitle";
 import { SectionTabs } from "@/components/court-count/SectionTabs";
-import { StatusPills } from "@/components/court-count/StatusPills";
+import { StatusPills, type StatusFilter } from "@/components/court-count/StatusPills";
 import { MatchCard } from "@/components/court-count/MatchCard";
 import { CreateMatchButton } from "@/components/court-count/CreateMatchButton";
 import { mockMatches } from "@/lib/mock-matches";
