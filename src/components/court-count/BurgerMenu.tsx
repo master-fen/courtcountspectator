@@ -1,0 +1,208 @@
+import { useEffect } from "react";
+import { useTheme } from "@/hooks/use-theme";
+import { useAuth } from "@/hooks/use-auth";
+
+type Props = {
+  open: boolean;
+  onClose: () => void;
+};
+
+export function BurgerMenu({ open, onClose }: Props) {
+  const { theme, toggle: toggleTheme } = useTheme();
+  const { isAuthed, toggle: toggleAuth } = useAuth();
+  const isDark = theme === "dark";
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  const navItems = [
+    { label: "Турниры", active: true },
+    { label: "О нас", active: false },
+    { label: "База знаний", active: false },
+  ];
+
+  return (
+    <div
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 100,
+        display: "flex",
+        justifyContent: "flex-end",
+      }}
+    >
+      <button
+        type="button"
+        aria-label="Закрыть меню"
+        onClick={onClose}
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "rgba(0,0,0,0.45)",
+          border: "none",
+          padding: 0,
+          cursor: "default",
+        }}
+      />
+      <aside
+        role="dialog"
+        aria-modal="true"
+        style={{
+          position: "relative",
+          width: 280,
+          maxWidth: "85vw",
+          height: "100%",
+          background: "var(--court-surface)",
+          display: "flex",
+          flexDirection: "column",
+          boxShadow: "-8px 0 24px rgba(0,0,0,0.25)",
+        }}
+      >
+        <div style={{ height: 28 }} />
+
+        <nav style={{ display: "flex", flexDirection: "column" }}>
+          {navItems.map((item) => (
+            <button
+              key={item.label}
+              type="button"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                padding: "14px 24px",
+                background: item.active
+                  ? "color-mix(in oklab, var(--court-primary) 18%, transparent)"
+                  : "transparent",
+                border: "none",
+                cursor: "pointer",
+                fontFamily: "var(--font-body)",
+                fontSize: 16,
+                lineHeight: "20px",
+                fontWeight: item.active ? 600 : 400,
+                color: "var(--court-text-strong)",
+                textAlign: "left",
+              }}
+            >
+              {item.label}
+            </button>
+          ))}
+        </nav>
+
+        <div
+          style={{
+            height: 1,
+            background: "var(--court-border, var(--court-text-soft))",
+            opacity: 0.4,
+            margin: "8px 16px",
+          }}
+        />
+
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <button
+            type="button"
+            onClick={toggleTheme}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              padding: "14px 24px",
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              fontFamily: "var(--font-body)",
+              fontSize: 16,
+              lineHeight: "20px",
+              color: "var(--court-text-strong)",
+            }}
+            aria-pressed={isDark}
+          >
+            <span>Тёмная тема</span>
+            <span
+              style={{
+                width: 36,
+                height: 20,
+                borderRadius: 999,
+                background: isDark
+                  ? "var(--court-primary)"
+                  : "color-mix(in oklab, var(--court-text-soft) 60%, transparent)",
+                position: "relative",
+                transition: "background 150ms ease",
+              }}
+            >
+              <span
+                style={{
+                  position: "absolute",
+                  top: 2,
+                  left: isDark ? 18 : 2,
+                  width: 16,
+                  height: 16,
+                  borderRadius: "50%",
+                  background: "#fff",
+                  transition: "left 150ms ease",
+                  boxShadow: "0 1px 2px rgba(0,0,0,0.2)",
+                }}
+              />
+            </span>
+          </button>
+
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              padding: "14px 24px",
+              fontFamily: "var(--font-body)",
+              fontSize: 16,
+              lineHeight: "20px",
+              color: "var(--court-text-strong)",
+            }}
+          >
+            <span>Язык</span>
+            <span style={{ color: "var(--court-text)" }}>RU</span>
+          </div>
+        </div>
+
+        <div
+          style={{
+            height: 1,
+            background: "var(--court-border, var(--court-text-soft))",
+            opacity: 0.4,
+            margin: "8px 16px",
+          }}
+        />
+
+        <div style={{ padding: "16px 24px" }}>
+          <button
+            type="button"
+            onClick={() => {
+              toggleAuth();
+              onClose();
+            }}
+            style={{
+              width: "100%",
+              height: 44,
+              borderRadius: 8,
+              border: "none",
+              cursor: "pointer",
+              background: "var(--court-primary)",
+              color: "var(--court-on-primary)",
+              fontFamily: "var(--font-body)",
+              fontWeight: 600,
+              fontSize: 16,
+              lineHeight: "20px",
+            }}
+          >
+            {isAuthed ? "Выйти" : "Войти"}
+          </button>
+        </div>
+      </aside>
+    </div>
+  );
+}
