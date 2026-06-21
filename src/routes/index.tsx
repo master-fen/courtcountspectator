@@ -89,26 +89,33 @@ function Index() {
             title='Первенство г. Люберцы на призы компании «Кухонный Двор»'
             progress={scrollProgress}
           />
-          <SectionTabs />
-          <StatusPills active={filter} onChange={setFilter} />
+          <SectionTabs active={tab} onChange={setTab} />
+          {tab === "Матчи" && <StatusPills active={filter} onChange={setFilter} />}
         </div>
 
         <div
           className="flex flex-col items-stretch bg-court-surface w-full"
           style={{ padding: "8px 0 0", gap: 12 }}
         >
-          <div
-            className="flex flex-col items-stretch w-full"
-            style={{ gap: 12, padding: `0 12px ${isAuthed ? 64 : 12}px` }}
-          >
-            {matches.map((m) => (
-              <MatchCard
-                key={m.id}
-                match={m}
-                onOpen={() => setSelected(m)}
-              />
-            ))}
-          </div>
+          {tab === "Матчи" && (
+            <div
+              className="flex flex-col items-stretch w-full"
+              style={{ gap: 12, padding: `0 12px ${isAuthed ? 64 : 12}px` }}
+            >
+              {matches.map((m) => (
+                <MatchCard
+                  key={m.id}
+                  match={m}
+                  onOpen={() => setSelected(m)}
+                />
+              ))}
+            </div>
+          )}
+          {tab === "Информация" && (
+            <div style={{ paddingBottom: isAuthed ? 64 : 12 }}>
+              <InfoTab />
+            </div>
+          )}
         </div>
 
         {isAuthed && <CreateMatchButton />}
