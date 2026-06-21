@@ -207,7 +207,7 @@ export function MatchCard({ match }: { match: Match }) {
         }}
       >
         {match.players.map((p, i) => (
-          <PlayerRow key={i} player={p} maxSets={maxSets} />
+          <PlayerRow key={i} player={p} maxSets={maxSets} showGame={match.status === "active"} />
         ))}
       </div>
 
