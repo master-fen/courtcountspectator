@@ -42,11 +42,11 @@ function Index() {
         <div
           className="flex flex-col items-stretch bg-court-surface w-full"
           style={{
-            padding: "12px 0 0",
+            padding: "8px 0 0",
             gap: 12,
           }}
         >
-          <div className="flex flex-col items-stretch w-full" style={{ gap: 16 }}>
+          <div className="flex flex-col items-stretch w-full" style={{ gap: 8 }}>
             <TournamentTitle title='Первенство г. Люберцы на призы компании «Кухонный Двор»' />
             <SectionTabs />
             <StatusPills />
@@ -54,7 +54,7 @@ function Index() {
 
           <div
             className="flex flex-col items-stretch w-full"
-            style={{ gap: 12, padding: `0 8px ${isAuthed ? 64 : 12}px` }}
+            style={{ gap: 12, padding: `0 12px ${isAuthed ? 64 : 12}px` }}
           >
             {mockMatches.map((m) => (
               <MatchCard key={m.id} match={m} />
