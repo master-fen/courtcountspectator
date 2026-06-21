@@ -3,19 +3,19 @@ import { ArrowLeft } from "lucide-react";
 export function TournamentTitle({ title }: { title: string }) {
   return (
     <div
-      className="flex flex-row items-start bg-court-surface"
-      style={{ width: 360, padding: "0 12px", gap: 8 }}
+      className="flex flex-row items-start bg-court-surface w-full"
+      style={{ padding: "0 12px", gap: 8 }}
     >
       <button
         type="button"
         aria-label="Назад"
-        style={{ color: "var(--court-text-strong)", marginTop: 2 }}
+        style={{ color: "var(--court-text-strong)", marginTop: 2, flexShrink: 0 }}
       >
         <ArrowLeft style={{ width: 24, height: 24 }} />
       </button>
       <h1
+        className="min-w-0 flex-1"
         style={{
-          width: 336,
           fontFamily: "var(--font-display)",
           fontWeight: 500,
           fontSize: 18,

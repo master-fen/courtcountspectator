@@ -87,9 +87,8 @@ export function MatchCard({ match }: { match: Match }) {
 
   return (
     <article
-      className="flex flex-col items-start overflow-hidden"
+      className="flex flex-col items-start overflow-hidden w-full"
       style={{
-        width: 344,
         border: "0.5px solid var(--court-card-border)",
         borderRadius: 6,
         background: "var(--court-surface)",

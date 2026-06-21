@@ -8,8 +8,8 @@ export function Header() {
   return (
     <>
       <header
-        className="relative flex flex-row items-center justify-between bg-court-surface"
-        style={{ width: 360, height: 64, padding: "16px 24px", gap: 12 }}
+        className="relative flex flex-row items-center justify-between bg-court-surface w-full"
+        style={{ height: 64, padding: "16px 24px", gap: 12 }}
       >
         <Logo height={32} />
         <button
