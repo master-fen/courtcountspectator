@@ -20,7 +20,15 @@ function TennisBallIcon({ size = 10 }: { size?: number }) {
   );
 }
 
-function PlayerRow({ player, maxSets }: { player: Player; maxSets: number }) {
+function PlayerRow({
+  player,
+  maxSets,
+  showGame,
+}: {
+  player: Player;
+  maxSets: number;
+  showGame: boolean;
+}) {
   return (
     <div
       className="flex flex-row items-center justify-between"
