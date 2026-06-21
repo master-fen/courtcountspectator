@@ -142,7 +142,7 @@ export function MatchDetailsSheet({
           {/* Players */}
           <div className="flex flex-col w-full" style={{ gap: 12 }}>
             {match.players.map((p, i) => (
-              <PlayerRow key={i} player={p} maxSets={maxSets} showGame={isActive} />
+              <PlayerRow key={i} player={p} maxSets={maxSets} showGame={!isCompleted} />
             ))}
           </div>
 
@@ -211,6 +211,19 @@ export function MatchDetailsSheet({
             >
               Продолжительность: <BlinkingTimer value={match.timer} blink={isActive} />
             </span>
+            {isPaused && match.pausedAt && (
+              <span
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontWeight: 400,
+                  fontSize: 14,
+                  lineHeight: "18px",
+                  color: "var(--court-text-soft)",
+                }}
+              >
+                На паузе с {match.pausedAt}
+              </span>
+            )}
           </div>
         </div>
       </SheetContent>
