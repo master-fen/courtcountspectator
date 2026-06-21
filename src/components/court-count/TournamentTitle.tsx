@@ -28,12 +28,12 @@ export function TournamentTitle({
           lineHeight: "21px",
           color: "var(--court-text-strong)",
           margin: 0,
-          display: "-webkit-box",
-          WebkitBoxOrient: "vertical",
-          WebkitLineClamp: compact ? 1 : 2,
           overflow: "hidden",
-          textOverflow: "ellipsis",
-          transition: "-webkit-line-clamp 200ms ease",
+          textOverflow: compact ? "ellipsis" : "clip",
+          whiteSpace: compact ? "nowrap" : "normal",
+          maxHeight: compact ? "21px" : "42px",
+          transition: "max-height 300ms cubic-bezier(0.25, 0.1, 0.25, 1)",
+          willChange: "max-height",
           wordBreak: "break-word",
         }}
       >
