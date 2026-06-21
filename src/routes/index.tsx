@@ -2,11 +2,12 @@ import { useState, useMemo, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/court-count/Header";
 import { TournamentTitle } from "@/components/court-count/TournamentTitle";
-import { SectionTabs } from "@/components/court-count/SectionTabs";
+import { SectionTabs, type Tab } from "@/components/court-count/SectionTabs";
 import { StatusPills, type StatusFilter } from "@/components/court-count/StatusPills";
 import { MatchCard } from "@/components/court-count/MatchCard";
 import { CreateMatchButton } from "@/components/court-count/CreateMatchButton";
 import { MatchDetailsSheet } from "@/components/court-count/MatchDetailsSheet";
+import { InfoTab } from "@/components/court-count/InfoTab";
 import { mockMatches, type Match } from "@/lib/mock-matches";
 import { useAuth } from "@/hooks/use-auth";
 
@@ -33,6 +34,7 @@ function Index() {
   const [filter, setFilter] = useState<StatusFilter>("Все");
   const [selected, setSelected] = useState<Match | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [tab, setTab] = useState<Tab>("Матчи");
 
   useEffect(() => {
     const START = 0;
@@ -87,26 +89,33 @@ function Index() {
             title='Первенство г. Люберцы на призы компании «Кухонный Двор»'
             progress={scrollProgress}
           />
-          <SectionTabs />
-          <StatusPills active={filter} onChange={setFilter} />
+          <SectionTabs active={tab} onChange={setTab} />
+          {tab === "Матчи" && <StatusPills active={filter} onChange={setFilter} />}
         </div>
 
         <div
           className="flex flex-col items-stretch bg-court-surface w-full"
           style={{ padding: "8px 0 0", gap: 12 }}
         >
-          <div
-            className="flex flex-col items-stretch w-full"
-            style={{ gap: 12, padding: `0 12px ${isAuthed ? 64 : 12}px` }}
-          >
-            {matches.map((m) => (
-              <MatchCard
-                key={m.id}
-                match={m}
-                onOpen={() => setSelected(m)}
-              />
-            ))}
-          </div>
+          {tab === "Матчи" && (
+            <div
+              className="flex flex-col items-stretch w-full"
+              style={{ gap: 12, padding: `0 12px ${isAuthed ? 64 : 12}px` }}
+            >
+              {matches.map((m) => (
+                <MatchCard
+                  key={m.id}
+                  match={m}
+                  onOpen={() => setSelected(m)}
+                />
+              ))}
+            </div>
+          )}
+          {tab === "Информация" && (
+            <div style={{ paddingBottom: isAuthed ? 64 : 12 }}>
+              <InfoTab />
+            </div>
+          )}
         </div>
 
         {isAuthed && <CreateMatchButton />}
