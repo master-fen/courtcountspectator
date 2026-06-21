@@ -29,6 +29,16 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const { isAuthed } = useAuth();
+  const [filter, setFilter] = useState<StatusFilter>("Все");
+
+  const matches = useMemo(() => {
+    const active = mockMatches.filter((m) => m.status === "active");
+    const completed = mockMatches.filter((m) => m.status === "completed");
+    if (filter === "Активные") return active;
+    if (filter === "Завершённые") return completed;
+    return [...active, ...completed];
+  }, [filter]);
+
   return (
     <div
       className="min-h-screen w-full flex justify-center"
@@ -50,14 +60,14 @@ function Index() {
           <div className="flex flex-col items-stretch w-full" style={{ gap: 12 }}>
             <TournamentTitle title='Первенство г. Люберцы на призы компании «Кухонный Двор»' />
             <SectionTabs />
-            <StatusPills />
+            <StatusPills active={filter} onChange={setFilter} />
           </div>
 
           <div
             className="flex flex-col items-stretch w-full"
             style={{ gap: 12, padding: `0 12px ${isAuthed ? 64 : 12}px` }}
           >
-            {mockMatches.map((m) => (
+            {matches.map((m) => (
               <MatchCard key={m.id} match={m} />
             ))}
           </div>
