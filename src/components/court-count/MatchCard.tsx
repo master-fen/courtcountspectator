@@ -114,11 +114,15 @@ function PlayerRow({
 export function MatchCard({ match }: { match: Match }) {
   const maxSets = Math.max(...match.players.map((p) => p.sets.length));
 
+  const isCompleted = match.status === "completed";
+
   return (
     <article
       className="flex flex-col items-start overflow-hidden w-full"
       style={{
-        border: "0.5px solid var(--court-card-border)",
+        border: isCompleted
+          ? "1px solid var(--court-completed-border)"
+          : "0.5px solid var(--court-card-border)",
         borderRadius: 6,
         background: "var(--court-surface)",
       }}
@@ -131,7 +135,9 @@ export function MatchCard({ match }: { match: Match }) {
           height: 32,
           padding: "8px 12px",
           gap: 8,
-          background: "var(--court-card-header)",
+          background: isCompleted
+            ? "var(--court-completed-header)"
+            : "var(--court-card-header)",
         }}
       >
         <div className="flex items-center" style={{ gap: 8 }}>
@@ -140,10 +146,9 @@ export function MatchCard({ match }: { match: Match }) {
               width: 10,
               height: 10,
               borderRadius: 9999,
-              background:
-                match.status === "completed"
-                  ? "var(--court-text-soft)"
-                  : "var(--court-green)",
+              background: isCompleted
+                ? "var(--court-completed-dot)"
+                : "var(--court-green)",
               display: "inline-block",
             }}
           />
