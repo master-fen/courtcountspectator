@@ -140,7 +140,10 @@ export function MatchCard({ match }: { match: Match }) {
               width: 10,
               height: 10,
               borderRadius: 9999,
-              background: "var(--court-green)",
+              background:
+                match.status === "completed"
+                  ? "var(--court-text-soft)"
+                  : "var(--court-green)",
               display: "inline-block",
             }}
           />
