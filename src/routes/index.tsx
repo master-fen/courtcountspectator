@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/court-count/Header";
 import { TournamentTitle } from "@/components/court-count/TournamentTitle";
@@ -32,6 +32,14 @@ function Index() {
   const { isAuthed } = useAuth();
   const [filter, setFilter] = useState<StatusFilter>("Все");
   const [selected, setSelected] = useState<Match | null>(null);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 0);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const matches = useMemo(() => {
     const active = mockMatches.filter((m) => m.status !== "completed");
@@ -50,21 +58,29 @@ function Index() {
         className="flex flex-col items-stretch w-full"
         style={{ gap: 4 }}
       >
-        <Header />
-
         <div
           className="flex flex-col items-stretch bg-court-surface w-full"
           style={{
-            padding: "8px 0 0",
+            position: "sticky",
+            top: 0,
+            zIndex: 30,
             gap: 12,
+            paddingBottom: 8,
           }}
         >
-          <div className="flex flex-col items-stretch w-full" style={{ gap: 12 }}>
-            <TournamentTitle title='Первенство г. Люберцы на призы компании «Кухонный Двор»' />
-            <SectionTabs />
-            <StatusPills active={filter} onChange={setFilter} />
-          </div>
+          <Header />
+          <TournamentTitle
+            title='Первенство г. Люберцы на призы компании «Кухонный Двор»'
+            compact={scrolled}
+          />
+          <SectionTabs />
+          <StatusPills active={filter} onChange={setFilter} />
+        </div>
 
+        <div
+          className="flex flex-col items-stretch bg-court-surface w-full"
+          style={{ padding: "8px 0 0", gap: 12 }}
+        >
           <div
             className="flex flex-col items-stretch w-full"
             style={{ gap: 12, padding: `0 12px ${isAuthed ? 64 : 12}px` }}

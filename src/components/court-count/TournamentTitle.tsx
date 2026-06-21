@@ -1,6 +1,12 @@
 import { ArrowLeft } from "lucide-react";
 
-export function TournamentTitle({ title }: { title: string }) {
+export function TournamentTitle({
+  title,
+  compact = false,
+}: {
+  title: string;
+  compact?: boolean;
+}) {
   return (
     <div
       className="flex flex-row items-start bg-court-surface w-full"
@@ -18,10 +24,17 @@ export function TournamentTitle({ title }: { title: string }) {
         style={{
           fontFamily: "var(--font-display)",
           fontWeight: 500,
-          fontSize: 18,
-          lineHeight: "21px",
+          fontSize: compact ? 15 : 18,
+          lineHeight: compact ? "20px" : "21px",
           color: "var(--court-text-strong)",
           margin: 0,
+          display: "-webkit-box",
+          WebkitBoxOrient: "vertical",
+          WebkitLineClamp: compact ? 1 : 2,
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          transition: "font-size 200ms ease, line-height 200ms ease",
+          wordBreak: "break-word",
         }}
       >
         {title}
