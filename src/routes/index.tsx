@@ -46,7 +46,7 @@ function Index() {
             gap: 12,
           }}
         >
-          <div className="flex flex-col items-stretch w-full" style={{ gap: 8 }}>
+          <div className="flex flex-col items-stretch w-full" style={{ gap: 12 }}>
             <TournamentTitle title='Первенство г. Люберцы на призы компании «Кухонный Двор»' />
             <SectionTabs />
             <StatusPills />
