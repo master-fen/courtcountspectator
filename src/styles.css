@@ -132,6 +132,9 @@
   --court-text-soft: #525556;
   --court-text-muted: #393C3D;
   --court-on-primary: #FFFFFF;
+  --court-completed-header: #E1E8ED;
+  --court-completed-border: #D1D9DF;
+  --court-completed-dot: #929C9F;
   --font-display: 'Roboto', system-ui, sans-serif;
   --font-body: 'Lato', system-ui, sans-serif;
 }
