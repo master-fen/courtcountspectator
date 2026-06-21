@@ -21,7 +21,8 @@ export function CreateMatchButton() {
         className="flex items-center justify-center"
         style={{
           pointerEvents: "auto",
-          width: 306,
+          width: "100%",
+          maxWidth: 480,
           height: 40,
           borderRadius: 8,
           background: "var(--court-primary)",
