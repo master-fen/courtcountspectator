@@ -136,6 +136,7 @@
   --court-completed-header: #E1E8ED;
   --court-completed-border: #D1D9DF;
   --court-completed-dot: #929C9F;
+  --court-paused-dot: #FFBA45;
   --font-display: 'Roboto', system-ui, sans-serif;
   --font-body: 'Lato', system-ui, sans-serif;
 }
