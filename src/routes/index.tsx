@@ -73,7 +73,7 @@ function Index() {
               <MatchCard
                 key={m.id}
                 match={m}
-                onOpen={m.status === "active" ? () => setSelected(m) : undefined}
+                onOpen={m.status !== "completed" ? () => setSelected(m) : undefined}
               />
             ))}
           </div>

@@ -31,6 +31,8 @@ export type Match = {
   message?: string;
   /** Match start time, e.g. "13:00". */
   startTime?: string;
+  /** Time when match was paused, e.g. "13:45". */
+  pausedAt?: string;
 };
 
 export const mockMatches: Match[] = [
@@ -83,6 +85,8 @@ export const mockMatches: Match[] = [
     stage: "Четвертьфинал",
     timer: "01:05",
     status: "paused",
+    startTime: "13:00",
+    pausedAt: "13:45",
     players: [
       {
         name: "Сафинов Марат",

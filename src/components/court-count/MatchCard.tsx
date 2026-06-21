@@ -8,14 +8,15 @@ export function MatchCard({ match, onOpen }: { match: Match; onOpen?: () => void
 
   const isCompleted = match.status === "completed";
   const isActive = match.status === "active";
+  const isClickable = !isCompleted && !!onOpen;
 
   return (
     <article
-      role={isActive ? "button" : undefined}
-      tabIndex={isActive ? 0 : undefined}
-      onClick={isActive ? onOpen : undefined}
+      role={isClickable ? "button" : undefined}
+      tabIndex={isClickable ? 0 : undefined}
+      onClick={isClickable ? onOpen : undefined}
       onKeyDown={
-        isActive
+        isClickable
           ? (e) => {
               if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
@@ -31,7 +32,7 @@ export function MatchCard({ match, onOpen }: { match: Match; onOpen?: () => void
           : "0.5px solid var(--court-card-border)",
         borderRadius: 6,
         background: "var(--court-surface)",
-        cursor: isActive ? "pointer" : "default",
+        cursor: isClickable ? "pointer" : "default",
       }}
     >
       {/* Header */}
@@ -105,7 +106,7 @@ export function MatchCard({ match, onOpen }: { match: Match; onOpen?: () => void
               return acc;
             }, [])}
           </span>
-          {isActive && (
+          {isClickable && (
             <ChevronRight
               style={{ width: 16, height: 16, color: "var(--court-text-soft)" }}
             />
