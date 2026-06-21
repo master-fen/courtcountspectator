@@ -1,4 +1,4 @@
-export function Logo({ height = 32 }: { height?: number }) {
+export function Logo({ height = 32, className }: { height?: number; className?: string }) {
   return (
     <svg
       width={(height * 172) / 90.53}
@@ -7,6 +7,7 @@ export function Logo({ height = 32 }: { height?: number }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-label="Court Count"
+      className={className}
     >
       <path
         d="M65.674 89.6899H6.87829C2.30529 89.6899 -0.721604 85.9953 0.149444 81.457L13.5491 9.08391C14.0254 6.81582 15.2452 4.77255 17.0144 3.27931C18.7836 1.78608 21.0004 0.92871 23.3121 0.843661H82.1078C86.6518 0.843661 89.6496 4.53104 88.8076 9.08391L75.4298 81.457C74.9524 83.7225 73.733 85.7633 71.9654 87.2549C70.1978 88.7466 67.9834 89.6037 65.674 89.6899Z"
