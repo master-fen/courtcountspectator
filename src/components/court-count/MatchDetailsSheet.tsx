@@ -47,6 +47,36 @@ export function MatchDetailsSheet({
   const isPaused = match.status === "paused";
   const isCompleted = match.status === "completed";
 
+  const setsWon = match.players.map((p, idx) => {
+    const other = match.players[1 - idx];
+    return p.sets.reduce(
+      (n, s, i) => n + (other.sets[i] && s.score > other.sets[i].score ? 1 : 0),
+      0,
+    );
+  });
+  const winnerIndex = isCompleted
+    ? setsWon[0] === setsWon[1]
+      ? -1
+      : setsWon[0] > setsWon[1]
+        ? 0
+        : 1
+    : -1;
+
+  function pluralRu(n: number, forms: [string, string, string]) {
+    const mod10 = n % 10;
+    const mod100 = n % 100;
+    if (mod10 === 1 && mod100 !== 11) return forms[0];
+    if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return forms[1];
+    return forms[2];
+  }
+  function formatDuration(timer: string) {
+    const [h, m] = timer.split(":").map(Number);
+    const parts: string[] = [];
+    if (h) parts.push(`${h} ${pluralRu(h, ["час", "часа", "часов"])}`);
+    if (m) parts.push(`${m} ${pluralRu(m, ["минута", "минуты", "минут"])}`);
+    return parts.join(" ") || "0 минут";
+  }
+
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent
