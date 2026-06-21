@@ -85,12 +85,12 @@ export const mockMatches: Match[] = [
         isServing: true,
         game: "AD",
         // mock tb indices
-        sets: [{ score: 7 }, { score: 6, tb: 4 }, { score: 5 }],
+        sets: [{ score: 7, tb: 7 }, { score: 6, tb: 4 }, { score: 5 }],
       },
       {
         name: "Эйсов Максим",
         game: "40",
-        sets: [{ score: 6, tb: 5 }, { score: 7 }, { score: 4 }],
+        sets: [{ score: 6, tb: 5 }, { score: 7, tb: 7 }, { score: 4 }],
       },
     ],
     message: "Домой приду — сразу лягу спать",
@@ -184,12 +184,12 @@ export const mockMatches: Match[] = [
         name: "Джоковичев Николай",
         game: "",
         // mock tb indices for 6:7 and 7:6
-        sets: [{ score: 6, tb: 5 }, { score: 7 }, { score: 10 }],
+        sets: [{ score: 6, tb: 5 }, { score: 7, tb: 7 }, { score: 10 }],
       },
       {
         name: "Надалян Армен",
         game: "",
-        sets: [{ score: 7 }, { score: 6, tb: 3 }, { score: 8 }],
+        sets: [{ score: 7, tb: 7 }, { score: 6, tb: 3 }, { score: 8 }],
       },
     ],
   },
@@ -222,7 +222,7 @@ export const mockMatches: Match[] = [
       {
         name: "Бэкхендов Пётр",
         game: "",
-        sets: [{ score: 4 }, { score: 6 }, { score: 7 }],
+        sets: [{ score: 4 }, { score: 6 }, { score: 7, tb: 7 }],
       },
       {
         name: "Эйсов Максим",
