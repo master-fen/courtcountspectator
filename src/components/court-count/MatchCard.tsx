@@ -192,9 +192,9 @@ export function MatchCard({ match }: { match: Match }) {
             {match.timer.split(":").reduce<ReactNode[]>((acc, part, i, arr) => {
               acc.push(<span key={`p${i}`}>{part}</span>);
               if (i < arr.length - 1) {
-                acc.push(
-                  <span key={`c${i}`} className="animate-timer-blink">:</span>
-                );
+                  acc.push(
+                    <span key={`c${i}`} className={match.status === "active" ? "animate-timer-blink" : undefined}>:</span>
+                  );
               }
               return acc;
             }, [])}
