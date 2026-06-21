@@ -6,7 +6,8 @@ import { SectionTabs } from "@/components/court-count/SectionTabs";
 import { StatusPills, type StatusFilter } from "@/components/court-count/StatusPills";
 import { MatchCard } from "@/components/court-count/MatchCard";
 import { CreateMatchButton } from "@/components/court-count/CreateMatchButton";
-import { mockMatches } from "@/lib/mock-matches";
+import { MatchDetailsSheet } from "@/components/court-count/MatchDetailsSheet";
+import { mockMatches, type Match } from "@/lib/mock-matches";
 import { useAuth } from "@/hooks/use-auth";
 
 export const Route = createFileRoute("/")({
@@ -30,6 +31,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   const { isAuthed } = useAuth();
   const [filter, setFilter] = useState<StatusFilter>("Все");
+  const [selected, setSelected] = useState<Match | null>(null);
 
   const matches = useMemo(() => {
     const active = mockMatches.filter((m) => m.status !== "completed");
@@ -68,12 +70,22 @@ function Index() {
             style={{ gap: 12, padding: `0 12px ${isAuthed ? 64 : 12}px` }}
           >
             {matches.map((m) => (
-              <MatchCard key={m.id} match={m} />
+              <MatchCard
+                key={m.id}
+                match={m}
+                onOpen={m.status === "active" ? () => setSelected(m) : undefined}
+              />
             ))}
           </div>
         </div>
 
         {isAuthed && <CreateMatchButton />}
+
+        <MatchDetailsSheet
+          match={selected}
+          open={!!selected}
+          onOpenChange={(o) => !o && setSelected(null)}
+        />
       </div>
     </div>
   );
