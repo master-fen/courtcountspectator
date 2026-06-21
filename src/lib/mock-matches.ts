@@ -85,12 +85,12 @@ export const mockMatches: Match[] = [
         isServing: true,
         game: "AD",
         // mock tb indices
-        sets: [{ score: 7 }, { score: 6, tb: 4 }, { score: 5 }],
+        sets: [{ score: 7, tb: 7 }, { score: 6, tb: 4 }, { score: 5 }],
       },
       {
         name: "Эйсов Максим",
         game: "40",
-        sets: [{ score: 6, tb: 5 }, { score: 7 }, { score: 4 }],
+        sets: [{ score: 6, tb: 5 }, { score: 7, tb: 7 }, { score: 4 }],
       },
     ],
     message: "Домой приду — сразу лягу спать",
