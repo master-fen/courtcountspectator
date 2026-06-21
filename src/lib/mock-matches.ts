@@ -19,7 +19,7 @@ export type Player = {
   sets: SetScore[];
 };
 
-export type MatchStatus = "active" | "completed";
+export type MatchStatus = "active" | "paused" | "completed";
 
 export type Match = {
   id: string;
