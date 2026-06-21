@@ -74,6 +74,26 @@ export const mockMatches: Match[] = [
     ],
   },
   {
+    id: "p1",
+    court: "Корт 3",
+    stage: "Четвертьфинал",
+    timer: "01:05",
+    status: "paused",
+    players: [
+      {
+        name: "Сафинов Марат",
+        game: "30",
+        sets: [{ score: 4 }, { score: 3 }],
+      },
+      {
+        name: "Курниковский Артём",
+        game: "30",
+        sets: [{ score: 6 }, { score: 2 }],
+      },
+    ],
+    message: "Пауза: дождь. Матч возобновится после высыхания корта.",
+  },
+  {
     id: "m3",
     court: "Корт 1",
     stage: "Финал",
