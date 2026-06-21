@@ -40,6 +40,7 @@ export const mockMatches: Match[] = [
     stage: "Полуфинал",
     timer: "01:22",
     status: "active",
+    startTime: "13:00",
     players: [
       {
         name: "Артёмова Лилия",
@@ -61,6 +62,7 @@ export const mockMatches: Match[] = [
     stage: "Четвертьфинал",
     timer: "00:52",
     status: "active",
+    startTime: "13:00",
     players: [
       {
         name: "Джоковичев Николай",
@@ -101,6 +103,7 @@ export const mockMatches: Match[] = [
     stage: "Финал",
     timer: "01:47",
     status: "active",
+    startTime: "13:00",
     players: [
       {
         name: "Бэкхендов Пётр",
@@ -123,6 +126,7 @@ export const mockMatches: Match[] = [
     stage: "Полуфинал",
     timer: "00:38",
     status: "active",
+    startTime: "13:00",
     players: [
       { name: "Тайбрекова Варвара", game: "30", sets: [{ score: 4 }] },
       {
@@ -139,6 +143,7 @@ export const mockMatches: Match[] = [
     stage: "Матч за 3 место",
     timer: "02:03",
     status: "active",
+    startTime: "13:00",
     players: [
       {
         name: "Уимблдонов Игорь",
@@ -160,6 +165,7 @@ export const mockMatches: Match[] = [
     stage: "Полуфинал",
     timer: "01:22",
     status: "active",
+    startTime: "13:00",
     players: [
       {
         name: "Мичманский Протор",
