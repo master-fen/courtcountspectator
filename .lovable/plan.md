@@ -1,40 +1,41 @@
-## Sticky-сэндвич с компактным режимом
+## Что добавляем
 
-Закрепляем сверху весь верхний блок: `Header` + `TournamentTitle` + `SectionTabs` + `StatusPills`. При скролле всё это сжимается (уменьшаются высоты и паддинги), но остаётся видимым. Низ страницы — без изменений.
+Bottom sheet с деталями матча, открывается по тапу на карточку **активного** матча (для `completed`/`paused` тап ничего не делает, ChevronRight скрывается).
 
-### Что меняется
+### Содержимое шита
+1. **Drag-handle** сверху (серая полоска ~36×4, скругление).
+2. **Шапка**: `Корт N` (жирный) · `Стадия` (приглушённый) · справа зелёная точка + «Активен».
+3. **Строки игроков** — те же стили, что в `MatchCard` (имя + мяч у подающего + game-бокс + сеты).
+4. **Сообщение** (если есть) — блок с мегафоном на `--court-surface-muted`.
+5. **Разделитель** (тонкая линия).
+6. **«Начало матча: HH:MM»** — мелкий приглушённый текст.
+7. **«Продолжительность: MM:SS»** — тот же стиль, что «Начало матча»; число — таймер из шапки карточки (`match.timer`), двоеточие мигает (`animate-timer-blink`), как в активной карточке.
 
-**`src/routes/index.tsx`**
-- Оборачиваем `Header + TournamentTitle + SectionTabs + StatusPills` в один контейнер `<div className="sticky top-0 z-40">` с фоном `var(--court-surface)` и лёгкой тенью при скролле (`box-shadow` появляется только в компактном режиме).
-- Добавляем хук `useScrolled(threshold = 16)`, который слушает `window.scroll` и хранит `boolean`. Передаём флаг `compact` в каждый под-компонент.
-- Список матчей остаётся как есть (просто скроллится под sticky-зоной). Нижний `CreateMatchButton` тоже без изменений (уже `fixed` снизу).
+Фон белый, скругление верхних углов 12px, padding 16px, gap 16px. Затемнение фона позади.
 
-**`src/components/court-count/Header.tsx`**
-- Добавляем `compact?: boolean`. Высота: `h-12 → h-9` в compact, логотип `h-6 → h-5`, иконка меню `18 → 16`, паддинг `py-2 px-6 → py-1 px-4`.
-- Плавный переход: `transition-[height,padding] duration-200`.
+### Файлы
 
-**`src/components/court-count/TournamentTitle.tsx`**
-- Добавляем `compact?: boolean`. В compact: `font-size 18 → 14`, `line-height 21 → 17`, иконка «назад» `24 → 18`, заголовок в одну строку с `truncate` (сейчас может занимать 2 строки). Паддинг сверху схлопываем.
+**1. `src/lib/mock-matches.ts`**
+- Добавить опциональное `startTime?: string` в `Match`, проставить у активных (например `"13:00"`).
 
-**`src/components/court-count/SectionTabs.tsx`**
-- `compact?: boolean`. Высота полосы `28 → 24`, `font-size 16 → 14`, паддинг кнопок `4px 10px → 2px 8px`.
+**2. `src/components/court-count/PlayerRow.tsx`** (новый, рефакторинг)
+- Вынести `PlayerRow` + `TennisBallIcon` из `MatchCard.tsx`, чтобы переиспользовать в шите.
 
-**`src/components/court-count/StatusPills.tsx`**
-- `compact?: boolean`. Высота пиллов `28 → 24`, паддинг `8px 12px → 4px 10px`, `font-size 14 → 12`.
+**3. `src/components/court-count/MatchDetailsSheet.tsx`** (новый)
+- На базе `Sheet`/`SheetContent` из `@/components/ui/sheet` со `side="bottom"`. Скрыть дефолтный close-X через className, добавить drag-handle.
+- Props: `match: Match | null`, `open: boolean`, `onOpenChange`.
+- Внутри: шапка со статус-пилюлей «Активен», `PlayerRow` для каждого игрока, message-блок (если есть), divider, «Начало матча», «Продолжительность» с мигающим таймером (выделить рендер двоеточия с `animate-timer-blink` в общую утилиту/инлайн).
 
-**Sticky-обёртка в `index.tsx`**
-- В обычном режиме: `gap: 12`, `padding-top: 8`.
-- В compact: `gap: 4`, `padding-top: 0`, `box-shadow: 0 2px 8px rgba(0,0,0,0.06)` (в dark — чуть темнее), тонкий бордер снизу `border-bottom: 0.5px solid var(--court-border)`.
-- Все переходы через `transition: all 200ms ease`.
+**4. `src/components/court-count/MatchCard.tsx`**
+- Импортировать `PlayerRow` из нового файла.
+- Сделать карточку кликабельной только для `status === "active"`: `role="button"`, `onClick={onOpen}`, `cursor: pointer`. Внутреннюю `<button>` шапки заменить на `<div>` (визуал не меняется), чтобы не было вложенных кнопок.
+- ChevronRight показывать только для активных.
+- Добавить пропс `onOpen?: () => void`.
 
-### Технические детали
+**5. `src/routes/index.tsx`**
+- `useState<Match | null>(null)` для выбранного матча.
+- `onOpen={() => m.status === "active" && setSelected(m)}` в `MatchCard`.
+- Рендерить `<MatchDetailsSheet match={selected} open={!!selected} onOpenChange={(o) => !o && setSelected(null)} />`.
 
-- Хук `useScrolled` — лёгкий, `useEffect` + `passive: true` listener, дебаунс не нужен (просто сравнение порога).
-- `position: sticky` работает только если у родителя нет `overflow: hidden`. Текущий корень `min-h-screen flex justify-center` — OK, проверим что внутренний flex-контейнер не режет overflow.
-- Z-index: sticky-зона `z-40`, чтобы `MatchDetailsSheet` (обычно `z-50`) был выше.
-- SSR-безопасность: начальное значение `scrolled = false`, чтобы не было гидрационного рассинхрона.
-
-### Что НЕ меняется
-
-- Логика фильтрации, карточки матчей, `MatchDetailsSheet`, `CreateMatchButton`, моки, авторизация.
-- Цвета и токены дизайн-системы — только размеры/паддинги.
+### Не трогаем
+Стили карточек, шапку страницы, табы, фильтры, цветовые токены.

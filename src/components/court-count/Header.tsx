@@ -3,32 +3,22 @@ import { Menu } from "lucide-react";
 import { Logo } from "./Logo";
 import { BurgerMenu } from "./BurgerMenu";
 
-export function Header({ compact = false }: { compact?: boolean }) {
+export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   return (
     <>
       <header
-        className="relative flex flex-row items-center justify-between bg-court-surface w-full transition-all duration-200"
-        style={{
-          gap: 12,
-          height: compact ? 36 : 48,
-          padding: compact ? "4px 16px" : "8px 24px",
-        }}
+        className="relative flex flex-row items-center justify-between bg-court-surface w-full h-12 md:h-16 py-2 md:py-4 px-6"
+        style={{ gap: 12 }}
       >
-        <Logo height={compact ? 20 : 24} className="w-auto" />
+        <Logo className="h-6 md:h-8 w-auto" />
         <button
           type="button"
           aria-label="Меню"
           onClick={() => setMenuOpen(true)}
           style={{ color: "var(--court-text-strong)" }}
         >
-          <Menu
-            style={{
-              width: compact ? 16 : 18,
-              height: compact ? 16 : 18,
-              transition: "all 200ms",
-            }}
-          />
+          <Menu className="w-[18px] h-[18px] md:w-6 md:h-6" />
         </button>
       </header>
       <BurgerMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
