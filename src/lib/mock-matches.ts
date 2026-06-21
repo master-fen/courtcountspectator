@@ -33,6 +33,8 @@ export type Match = {
   startTime?: string;
   /** Time when match was paused, e.g. "13:45". */
   pausedAt?: string;
+  /** Match end time (completed matches), e.g. "16:43". */
+  endTime?: string;
 };
 
 export const mockMatches: Match[] = [
