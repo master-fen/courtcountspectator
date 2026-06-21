@@ -35,7 +35,14 @@ function Index() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 0);
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled((prev) => {
+        if (prev && y < 5) return false;
+        if (!prev && y > 20) return true;
+        return prev;
+      });
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
