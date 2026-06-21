@@ -4,11 +4,10 @@ export function CreateMatchButton() {
       style={{
         position: "fixed",
         bottom: 0,
-        left: "50%",
-        transform: "translateX(-50%)",
+        left: 0,
+        right: 0,
         zIndex: 50,
-        width: 360,
-        padding: "16px 0 20px",
+        padding: "16px 16px 20px",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -22,7 +21,8 @@ export function CreateMatchButton() {
         className="flex items-center justify-center"
         style={{
           pointerEvents: "auto",
-          width: 306,
+          width: "100%",
+          maxWidth: 480,
           height: 40,
           borderRadius: 8,
           background: "var(--court-primary)",

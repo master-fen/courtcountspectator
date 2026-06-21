@@ -34,28 +34,27 @@ function Index() {
       style={{ background: "var(--court-bg)", fontFamily: "var(--font-body)" }}
     >
       <div
-        className="flex flex-col items-center"
-        style={{ width: 360, gap: 4 }}
+        className="flex flex-col items-stretch w-full"
+        style={{ gap: 4 }}
       >
         <Header />
 
         <div
-          className="flex flex-col items-center bg-court-surface"
+          className="flex flex-col items-stretch bg-court-surface w-full"
           style={{
-            width: 360,
             padding: "12px 0 0",
             gap: 12,
           }}
         >
-          <div className="flex flex-col items-center" style={{ width: 360, gap: 16 }}>
+          <div className="flex flex-col items-stretch w-full" style={{ gap: 16 }}>
             <TournamentTitle title='Первенство г. Люберцы на призы компании «Кухонный Двор»' />
             <SectionTabs />
             <StatusPills />
           </div>
 
           <div
-            className="flex flex-col items-start"
-            style={{ width: 344, gap: 12, paddingBottom: isAuthed ? 64 : 12 }}
+            className="flex flex-col items-stretch w-full"
+            style={{ gap: 12, padding: `0 8px ${isAuthed ? 64 : 12}px` }}
           >
             {mockMatches.map((m) => (
               <MatchCard key={m.id} match={m} />

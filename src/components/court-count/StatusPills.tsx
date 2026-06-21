@@ -2,8 +2,8 @@ export function StatusPills({ active = "Активные" }: { active?: string }
   const pills = ["Активные", "Завершённые"];
   return (
     <div
-      className="flex flex-row items-start"
-      style={{ width: 360, padding: "0 12px", gap: 0 }}
+      className="flex flex-row items-start w-full"
+      style={{ padding: "0 12px", gap: 0 }}
     >
       {pills.map((pill) => {
         const isActive = pill === active;

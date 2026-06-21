@@ -7,11 +7,10 @@ export function SectionTabs({ active = "Матчи" as Tab }: { active?: Tab }) 
   const { isAuthed } = useAuth();
   const tabs = isAuthed ? allTabs : (["Матчи"] as readonly Tab[]);
   return (
-    <div style={{ width: 360, padding: "0 12px" }}>
+    <div className="w-full" style={{ padding: "0 12px" }}>
       <div
-        className="flex flex-row items-center"
+        className="flex flex-row items-center w-full"
         style={{
-          width: 336,
           height: 31,
           gap: 8,
           borderBottom: "0.5px solid var(--court-text-soft)",
