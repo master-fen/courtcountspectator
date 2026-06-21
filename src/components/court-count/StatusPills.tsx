@@ -1,5 +1,13 @@
-export function StatusPills({ active = "Активные" }: { active?: string }) {
-  const pills = ["Активные", "Завершённые"];
+export type StatusFilter = "Все" | "Активные" | "Завершённые";
+
+export function StatusPills({
+  active = "Все",
+  onChange,
+}: {
+  active?: StatusFilter;
+  onChange?: (value: StatusFilter) => void;
+}) {
+  const pills: StatusFilter[] = ["Все", "Активные", "Завершённые"];
   return (
     <div
       className="flex flex-row items-start w-full"
@@ -11,6 +19,7 @@ export function StatusPills({ active = "Активные" }: { active?: string }
           <button
             key={pill}
             type="button"
+            onClick={() => onChange?.(pill)}
             className="flex items-center"
             style={{
               padding: "8px 12px",
