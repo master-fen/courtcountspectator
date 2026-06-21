@@ -22,16 +22,20 @@ export function PlayerRow({
   player,
   maxSets,
   showGame,
+  bold = false,
 }: {
   player: Player;
   maxSets: number;
   showGame: boolean;
+  bold?: boolean;
 }) {
   return (
     <div
       className="flex flex-row items-center justify-between"
       style={{ gap: 12, height: 18 }}
-    >
+    ></div>
+  );
+}
       <div className="flex items-center min-w-0" style={{ gap: 8 }}>
         <span
           className="truncate"
