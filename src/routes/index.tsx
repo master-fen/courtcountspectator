@@ -82,18 +82,18 @@ function TournamentsList() {
             position: "sticky",
             top: 48,
             zIndex: 20,
-            padding: `${16 - 8 * p}px 12px`,
+            padding: `${16 - 12 * p}px 12px`,
             display: "flex",
             flexDirection: "column",
-            gap: 16 - 4 * p,
+            gap: 16 - 10 * p,
           }}
         >
           <h1
             style={{
               fontFamily: "var(--font-display)",
               fontWeight: 500,
-              fontSize: 20 - 4 * p,
-              lineHeight: `${26 - 5 * p}px`,
+              fontSize: 20,
+              lineHeight: "26px",
               letterSpacing: "0.02em",
               color: "var(--court-text-strong)",
               margin: 0,
