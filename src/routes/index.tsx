@@ -29,6 +29,28 @@ function TournamentsList() {
   const navigate = useNavigate();
   const [tab, setTab] = useState<TabKey>("current");
   const [query, setQuery] = useState("");
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const START = 0;
+    const END = 48;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const y = window.scrollY;
+      const p = Math.max(0, Math.min(1, (y - START) / (END - START)));
+      setScrollProgress(p);
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
 
   const visible = useMemo(() => {
     const byStatus = mockTournaments.filter((t) =>
