@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Search } from "lucide-react";
 import { Header } from "@/components/court-count/Header";
@@ -29,28 +29,6 @@ function TournamentsList() {
   const navigate = useNavigate();
   const [tab, setTab] = useState<TabKey>("current");
   const [query, setQuery] = useState("");
-  const [scrollProgress, setScrollProgress] = useState(0);
-
-  useEffect(() => {
-    const START = 0;
-    const END = 48;
-    let raf = 0;
-    const update = () => {
-      raf = 0;
-      const y = window.scrollY;
-      const p = Math.max(0, Math.min(1, (y - START) / (END - START)));
-      setScrollProgress(p);
-    };
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, []);
 
   const visible = useMemo(() => {
     const byStatus = mockTournaments.filter((t) =>
@@ -60,8 +38,6 @@ function TournamentsList() {
     if (!q) return byStatus;
     return byStatus.filter((t) => t.title.toLowerCase().includes(q));
   }, [tab, query]);
-
-  const p = scrollProgress;
 
   return (
     <div
@@ -78,15 +54,7 @@ function TournamentsList() {
 
         <div
           className="flex flex-col items-stretch bg-court-surface w-full"
-          style={{
-            position: "sticky",
-            top: 48,
-            zIndex: 20,
-            padding: `${16 - 12 * p}px 12px`,
-            display: "flex",
-            flexDirection: "column",
-            gap: 16 - 10 * p,
-          }}
+          style={{ padding: "16px 12px", gap: 16, flex: 1 }}
         >
           <h1
             style={{
@@ -177,12 +145,7 @@ function TournamentsList() {
               }}
             />
           </div>
-        </div>
 
-        <div
-          className="flex flex-col items-stretch bg-court-surface w-full"
-          style={{ padding: "16px 12px", gap: 16, flex: 1 }}
-        >
           {/* List */}
           {visible.length > 0 ? (
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>

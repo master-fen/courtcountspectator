@@ -76,8 +76,8 @@ function TournamentDetail() {
             position: "sticky",
             top: 0,
             zIndex: 30,
-            gap: 12 - 6 * scrollProgress,
-            paddingBottom: 8 - 6 * scrollProgress,
+            gap: 12,
+            paddingBottom: 8,
           }}
         >
           <Header />
