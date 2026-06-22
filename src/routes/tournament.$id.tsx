@@ -12,6 +12,12 @@ import { mockMatches, type Match } from "@/lib/mock-matches";
 import { getTournamentById } from "@/lib/mock-tournaments";
 import { useAuth } from "@/hooks/use-auth";
 
+/** Rough estimate of how many 21px lines the title needs on mobile (~355 px width). */
+function estimateTitleLines(title: string): number {
+  const charsPerLine = 32;
+  return Math.min(4, Math.max(2, Math.ceil(title.length / charsPerLine)));
+}
+
 export const Route = createFileRoute("/tournament/$id")({
   loader: ({ params }) => {
     const tournament = getTournamentById(params.id);
