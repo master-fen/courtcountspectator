@@ -47,7 +47,7 @@ export function TournamentCard({
           fontFamily: "var(--font-body)",
           fontWeight: 700,
           fontSize: 14,
-          lineHeight: "17px",
+          lineHeight: "118.8%",
           color: "var(--court-text-strong)",
           wordBreak: "break-word",
         }}
