@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Search } from "lucide-react";
 import { Header } from "@/components/court-count/Header";
@@ -29,6 +29,28 @@ function TournamentsList() {
   const navigate = useNavigate();
   const [tab, setTab] = useState<TabKey>("current");
   const [query, setQuery] = useState("");
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const START = 0;
+    const END = 48;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const y = window.scrollY;
+      const p = Math.max(0, Math.min(1, (y - START) / (END - START)));
+      setScrollProgress(p);
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
 
   const visible = useMemo(() => {
     const byStatus = mockTournaments.filter((t) =>
@@ -38,6 +60,8 @@ function TournamentsList() {
     if (!q) return byStatus;
     return byStatus.filter((t) => t.title.toLowerCase().includes(q));
   }, [tab, query]);
+
+  const p = scrollProgress;
 
   return (
     <div
@@ -54,14 +78,22 @@ function TournamentsList() {
 
         <div
           className="flex flex-col items-stretch bg-court-surface w-full"
-          style={{ padding: "16px 12px", gap: 16, flex: 1 }}
+          style={{
+            position: "sticky",
+            top: 48,
+            zIndex: 20,
+            padding: `${16 - 8 * p}px 12px`,
+            display: "flex",
+            flexDirection: "column",
+            gap: 16 - 4 * p,
+          }}
         >
           <h1
             style={{
               fontFamily: "var(--font-display)",
               fontWeight: 500,
-              fontSize: 20,
-              lineHeight: "26px",
+              fontSize: 20 - 4 * p,
+              lineHeight: `${26 - 5 * p}px`,
               letterSpacing: "0.02em",
               color: "var(--court-text-strong)",
               margin: 0,
@@ -145,7 +177,12 @@ function TournamentsList() {
               }}
             />
           </div>
+        </div>
 
+        <div
+          className="flex flex-col items-stretch bg-court-surface w-full"
+          style={{ padding: "16px 12px", gap: 16, flex: 1 }}
+        >
           {/* List */}
           {visible.length > 0 ? (
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
