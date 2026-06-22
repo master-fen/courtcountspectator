@@ -2,17 +2,20 @@ import { ArrowLeft } from "lucide-react";
 
 export function TournamentTitle({
   title,
+  lines = 2,
   progress = 0,
   onBack,
 }: {
   title: string;
-  /** 0 = fully expanded (2 lines), 1 = fully compact (1 line) */
+  lines?: number;
+  /** 0 = fully expanded (`lines` lines), 1 = fully compact (1 line) */
   progress?: number;
   onBack?: () => void;
 }) {
   const p = Math.max(0, Math.min(1, progress));
+  const fullHeight = 21 * Math.max(1, lines);
 
-  const height = 42 - 21 * p; // 42 -> 21
+  const height = fullHeight - (fullHeight - 21) * p;
   const fullOpacity = Math.max(0, 1 - p * 1.4);
   const compactOpacity = Math.max(0, (p - 0.2) / 0.8);
   const fullTranslate = -10 * p;
@@ -71,7 +74,7 @@ export function TournamentTitle({
               margin: 0,
               display: "-webkit-box",
               WebkitBoxOrient: "vertical",
-              WebkitLineClamp: 2,
+              WebkitLineClamp: lines,
               overflow: "hidden",
               wordBreak: "break-word",
             }}
