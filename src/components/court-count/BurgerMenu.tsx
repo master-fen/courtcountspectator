@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTheme } from "@/hooks/use-theme";
 import { useAuth } from "@/hooks/use-auth";
 
@@ -12,6 +12,11 @@ export function BurgerMenu({ open, onClose }: Props) {
   const { isAuthed, toggle: toggleAuth } = useAuth();
   const isDark = theme === "dark";
 
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const lockedAxis = useRef<"h" | "v" | null>(null);
+  const [dragX, setDragX] = useState(0);
+  const SWIPE_THRESHOLD = 80;
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -20,6 +25,37 @@ export function BurgerMenu({ open, onClose }: Props) {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose]);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const t = e.touches[0];
+    touchStart.current = { x: t.clientX, y: t.clientY };
+    lockedAxis.current = null;
+    setDragX(0);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!touchStart.current) return;
+    const t = e.touches[0];
+    const dx = t.clientX - touchStart.current.x;
+    const dy = t.clientY - touchStart.current.y;
+    if (lockedAxis.current === null) {
+      if (Math.abs(dx) > 8 || Math.abs(dy) > 8) {
+        lockedAxis.current = Math.abs(dx) > Math.abs(dy) ? "h" : "v";
+      }
+    }
+    if (lockedAxis.current === "h" && dx > 0) {
+      setDragX(dx);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (lockedAxis.current === "h" && dragX >= SWIPE_THRESHOLD) {
+      onClose();
+    }
+    touchStart.current = null;
+    lockedAxis.current = null;
+    setDragX(0);
+  };
 
   if (!open) return null;
 
@@ -55,6 +91,10 @@ export function BurgerMenu({ open, onClose }: Props) {
       <aside
         role="dialog"
         aria-modal="true"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onTouchCancel={handleTouchEnd}
         style={{
           position: "relative",
           width: 280,
@@ -64,6 +104,9 @@ export function BurgerMenu({ open, onClose }: Props) {
           display: "flex",
           flexDirection: "column",
           boxShadow: "-8px 0 24px rgba(0,0,0,0.25)",
+          transform: dragX > 0 ? `translateX(${dragX}px)` : undefined,
+          transition: dragX > 0 ? "none" : "transform 200ms ease",
+          touchAction: "pan-y",
         }}
       >
         <div style={{ height: 28 }} />
