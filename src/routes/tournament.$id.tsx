@@ -40,6 +40,7 @@ function TournamentDetail() {
   const [selected, setSelected] = useState<Match | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [tab, setTab] = useState<Tab>("Матчи");
+  const titleLines = useMemo(() => estimateTitleLines(tournament.title), [tournament.title]);
 
   useEffect(() => {
     const START = 0;
