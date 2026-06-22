@@ -1,129 +1,179 @@
-import { useState, useMemo, useEffect } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { useState, useMemo } from "react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { Search } from "lucide-react";
 import { Header } from "@/components/court-count/Header";
-import { TournamentTitle } from "@/components/court-count/TournamentTitle";
-import { SectionTabs, type Tab } from "@/components/court-count/SectionTabs";
-import { StatusPills, type StatusFilter } from "@/components/court-count/StatusPills";
-import { MatchCard } from "@/components/court-count/MatchCard";
-import { CreateMatchButton } from "@/components/court-count/CreateMatchButton";
-import { MatchDetailsSheet } from "@/components/court-count/MatchDetailsSheet";
-import { InfoTab } from "@/components/court-count/InfoTab";
-import { mockMatches, type Match } from "@/lib/mock-matches";
-import { useAuth } from "@/hooks/use-auth";
+import { TournamentCard } from "@/components/court-count/TournamentCard";
+import { mockTournaments } from "@/lib/mock-tournaments";
+
+type TabKey = "current" | "completed";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Court Count" },
+      { title: "Турниры — Court Count" },
       {
         name: "description",
-        content: "Трансляция теннисного счёта в реальном времени.",
+        content: "Список текущих и завершённых теннисных турниров.",
       },
-      { property: "og:title", content: "Court Count" },
+      { property: "og:title", content: "Турниры — Court Count" },
       {
         property: "og:description",
-        content: "Трансляция теннисного счёта в реальном времени.",
+        content: "Список текущих и завершённых теннисных турниров.",
       },
     ],
   }),
-  component: Index,
+  component: TournamentsList,
 });
 
-function Index() {
-  const { isAuthed } = useAuth();
-  const [filter, setFilter] = useState<StatusFilter>("Все");
-  const [selected, setSelected] = useState<Match | null>(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [tab, setTab] = useState<Tab>("Матчи");
+function TournamentsList() {
+  const navigate = useNavigate();
+  const [tab, setTab] = useState<TabKey>("current");
+  const [query, setQuery] = useState("");
 
-  useEffect(() => {
-    const START = 0;
-    const END = 48;
-    let raf = 0;
-    const update = () => {
-      raf = 0;
-      const y = window.scrollY;
-      const p = Math.max(0, Math.min(1, (y - START) / (END - START)));
-      setScrollProgress(p);
-    };
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, []);
-
-  const matches = useMemo(() => {
-    const active = mockMatches.filter((m) => m.status !== "completed");
-    const completed = mockMatches.filter((m) => m.status === "completed");
-    if (filter === "Активные") return active;
-    if (filter === "Завершённые") return completed;
-    return [...active, ...completed];
-  }, [filter]);
+  const visible = useMemo(() => {
+    const byStatus = mockTournaments.filter((t) =>
+      tab === "current" ? t.status === "current" : t.status === "completed",
+    );
+    const q = query.trim().toLowerCase();
+    if (!q) return byStatus;
+    return byStatus.filter((t) => t.title.toLowerCase().includes(q));
+  }, [tab, query]);
 
   return (
     <div
       className="min-h-screen w-full flex justify-center"
       style={{ background: "var(--court-bg)", fontFamily: "var(--font-body)" }}
     >
-        <div
-          className="flex flex-col items-stretch w-full"
-        >
+      <div className="flex flex-col items-stretch w-full">
         <div
           className="flex flex-col items-stretch bg-court-surface w-full"
-          style={{
-            position: "sticky",
-            top: 0,
-            zIndex: 30,
-            gap: 12,
-            paddingBottom: 8,
-          }}
+          style={{ position: "sticky", top: 0, zIndex: 30 }}
         >
           <Header />
-          <TournamentTitle
-            title='Первенство г. Люберцы на призы компании «Кухонный Двор»'
-            progress={scrollProgress}
-          />
-          <SectionTabs active={tab} onChange={setTab} />
-          {tab === "Матчи" && <StatusPills active={filter} onChange={setFilter} />}
         </div>
 
         <div
           className="flex flex-col items-stretch bg-court-surface w-full"
-          style={{ padding: "8px 0 0", gap: 12 }}
+          style={{ padding: "16px 12px", gap: 16, flex: 1 }}
         >
-          {tab === "Матчи" && (
-            <div
-              className="flex flex-col items-stretch w-full"
-              style={{ gap: 12, padding: `0 12px ${isAuthed ? 64 : 12}px` }}
-            >
-              {matches.map((m) => (
-                <MatchCard
-                  key={m.id}
-                  match={m}
-                  onOpen={() => setSelected(m)}
+          <h1
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 500,
+              fontSize: 20,
+              lineHeight: "26px",
+              letterSpacing: "0.02em",
+              color: "var(--court-text-strong)",
+              margin: 0,
+            }}
+          >
+            Турниры
+          </h1>
+
+          {/* Tabs */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 0,
+              borderBottom: "0.5px solid var(--court-text-soft)",
+              height: 29,
+            }}
+          >
+            {(
+              [
+                { key: "current", label: "Текущие" },
+                { key: "completed", label: "Завершенные" },
+              ] as { key: TabKey; label: string }[]
+            ).map((t) => {
+              const active = t.key === tab;
+              return (
+                <button
+                  key={t.key}
+                  type="button"
+                  onClick={() => setTab(t.key)}
+                  style={{
+                    padding: "2px 8px",
+                    height: 29,
+                    marginBottom: "-0.5px",
+                    borderBottom: active
+                      ? "1px solid var(--court-primary)"
+                      : "1px solid transparent",
+                    fontFamily: "var(--font-body)",
+                    fontSize: 16,
+                    lineHeight: "20px",
+                    fontWeight: active ? 600 : 400,
+                    color: active ? "var(--court-primary)" : "var(--court-text-strong)",
+                    background: "transparent",
+                    cursor: "pointer",
+                  }}
+                >
+                  {t.label}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Search */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "0 12px",
+              height: 31,
+              background: "var(--court-completed-header)",
+              borderRadius: 8,
+            }}
+          >
+            <Search size={14} color="var(--court-text-soft)" />
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Поиск по названию"
+              style={{
+                flex: 1,
+                border: "none",
+                outline: "none",
+                background: "transparent",
+                fontFamily: "var(--font-body)",
+                fontSize: 14,
+                lineHeight: "18px",
+                color: "var(--court-text-strong)",
+              }}
+            />
+          </div>
+
+          {/* List */}
+          {visible.length > 0 ? (
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              {visible.map((t) => (
+                <TournamentCard
+                  key={t.id}
+                  tournament={t}
+                  onOpen={() =>
+                    navigate({ to: "/tournament/$id", params: { id: t.id } })
+                  }
                 />
               ))}
             </div>
-          )}
-          {tab === "Информация" && (
-            <div style={{ paddingBottom: isAuthed ? 64 : 12 }}>
-              <InfoTab />
+          ) : (
+            <div
+              style={{
+                padding: "24px 12px",
+                textAlign: "center",
+                color: "var(--court-text-soft)",
+                fontSize: 14,
+              }}
+            >
+              {tab === "completed"
+                ? "Завершённых турниров пока нет"
+                : "Ничего не найдено"}
             </div>
           )}
         </div>
-
-        {isAuthed && <CreateMatchButton />}
-
-        <MatchDetailsSheet
-          match={selected}
-          open={!!selected}
-          onOpenChange={(o) => !o && setSelected(null)}
-        />
       </div>
     </div>
   );
