@@ -1,4 +1,4 @@
-import { Trophy, CalendarBlank } from "@phosphor-icons/react";
+import { Trophy, CalendarDays } from "lucide-react";
 import type { Tournament } from "@/lib/mock-tournaments";
 
 function FlagRU() {
@@ -68,7 +68,7 @@ export function TournamentCard({
             flexShrink: 0,
           }}
         >
-          <Trophy size={26} weight="fill" color="#E9C943" />
+          <Trophy size={26} fill="#E9C943" color="#E9C943" strokeWidth={1.5} />
         </div>
 
         <div
@@ -95,7 +95,7 @@ export function TournamentCard({
             </span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <CalendarBlank size={16} color="var(--court-text-soft)" />
+            <CalendarDays size={16} color="var(--court-text-soft)" />
             <span
               style={{
                 fontFamily: "var(--font-body)",
