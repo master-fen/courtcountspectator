@@ -5,14 +5,16 @@ export function TournamentTitle({
   progress = 0,
 }: {
   title: string;
-  /** 0 = fully visible (2 lines), 1 = fully hidden */
+  /** 0 = fully expanded (2 lines), 1 = fully compact (1 line) */
   progress?: number;
 }) {
   const p = Math.max(0, Math.min(1, progress));
 
-  const height = 42 * (1 - p);
-  const opacity = Math.max(0, 1 - p * 1.6);
-  const translateY = -12 * p;
+  const height = 42 - 21 * p; // 42 -> 21
+  const fullOpacity = Math.max(0, 1 - p * 1.4);
+  const compactOpacity = Math.max(0, (p - 0.2) / 0.8);
+  const fullTranslate = -10 * p;
+  const compactTranslate = 10 * (1 - p);
 
   return (
     <div
@@ -26,8 +28,6 @@ export function TournamentTitle({
           color: "var(--court-text-strong)",
           marginTop: 2 * (1 - p),
           flexShrink: 0,
-          opacity,
-          transform: `translateY(${translateY}px)`,
         }}
       >
         <ArrowLeft style={{ width: 24, height: 24 }} />
@@ -40,14 +40,16 @@ export function TournamentTitle({
           willChange: "height",
         }}
       >
+        {/* Full text layer */}
         <div
           style={{
             position: "absolute",
             top: 0,
             left: 0,
             width: "100%",
-            opacity,
-            transform: `translateY(${translateY}px)`,
+            opacity: fullOpacity,
+            transform: `translateY(${fullTranslate}px)`,
+            pointerEvents: p > 0.5 ? "none" : "auto",
             willChange: "opacity, transform",
           }}
         >
@@ -64,6 +66,38 @@ export function TournamentTitle({
               WebkitLineClamp: 2,
               overflow: "hidden",
               wordBreak: "break-word",
+            }}
+          >
+            {title}
+          </h1>
+        </div>
+
+        {/* Compact text layer */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: 21,
+            overflow: "hidden",
+            opacity: compactOpacity,
+            transform: `translateY(${compactTranslate}px)`,
+            pointerEvents: p > 0.5 ? "auto" : "none",
+            willChange: "opacity, transform",
+          }}
+        >
+          <h1
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 500,
+              fontSize: 18,
+              lineHeight: "21px",
+              color: "var(--court-text-strong)",
+              margin: 0,
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
             }}
           >
             {title}

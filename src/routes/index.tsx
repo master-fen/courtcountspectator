@@ -79,23 +79,17 @@ function Index() {
             position: "sticky",
             top: 0,
             zIndex: 30,
+            gap: 12,
             paddingBottom: 8,
           }}
         >
           <Header />
-          <div style={{ height: 12 * (1 - scrollProgress) }} />
           <TournamentTitle
             title='Первенство г. Люберцы на призы компании «Кухонный Двор»'
             progress={scrollProgress}
           />
-          <div style={{ height: 12 * (1 - scrollProgress) }} />
           <SectionTabs active={tab} onChange={setTab} />
-          {tab === "Матчи" && (
-            <>
-              <div style={{ height: 12 }} />
-              <StatusPills active={filter} onChange={setFilter} />
-            </>
-          )}
+          {tab === "Матчи" && <StatusPills active={filter} onChange={setFilter} />}
         </div>
 
         <div
