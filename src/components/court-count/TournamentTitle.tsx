@@ -3,10 +3,12 @@ import { ArrowLeft } from "lucide-react";
 export function TournamentTitle({
   title,
   progress = 0,
+  onBack,
 }: {
   title: string;
   /** 0 = fully expanded (2 lines), 1 = fully compact (1 line) */
   progress?: number;
+  onBack?: () => void;
 }) {
   const p = Math.max(0, Math.min(1, progress));
 
@@ -24,14 +26,20 @@ export function TournamentTitle({
       <button
         type="button"
         aria-label="Назад"
+        onClick={onBack}
         style={{
           color: "var(--court-text-strong)",
           marginTop: 2 * (1 - p),
           flexShrink: 0,
+          background: "transparent",
+          border: "none",
+          padding: 0,
+          cursor: onBack ? "pointer" : "default",
         }}
       >
         <ArrowLeft style={{ width: 24, height: 24 }} />
       </button>
+
       <div
         className="min-w-0 flex-1 relative"
         style={{

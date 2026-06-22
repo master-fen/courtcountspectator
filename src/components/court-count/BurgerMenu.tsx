@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
 import { useTheme } from "@/hooks/use-theme";
 import { useAuth } from "@/hooks/use-auth";
+
 
 type Props = {
   open: boolean;
@@ -10,7 +12,9 @@ type Props = {
 export function BurgerMenu({ open, onClose }: Props) {
   const { theme, toggle: toggleTheme } = useTheme();
   const { isAuthed, toggle: toggleAuth } = useAuth();
+  const navigate = useNavigate();
   const isDark = theme === "dark";
+
 
   const touchStart = useRef<{ x: number; y: number } | null>(null);
   const lockedAxis = useRef<"h" | "v" | null>(null);
@@ -116,6 +120,12 @@ export function BurgerMenu({ open, onClose }: Props) {
             <button
               key={item.label}
               type="button"
+              onClick={() => {
+                if (item.label === "Турниры") {
+                  navigate({ to: "/" });
+                  onClose();
+                }
+              }}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -137,6 +147,7 @@ export function BurgerMenu({ open, onClose }: Props) {
             </button>
           ))}
         </nav>
+
 
         <div
           style={{
