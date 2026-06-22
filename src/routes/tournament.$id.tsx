@@ -90,6 +90,7 @@ function TournamentDetail() {
           <Header />
           <TournamentTitle
             title={tournament.title}
+            lines={titleLines}
             progress={scrollProgress}
             onBack={() => navigate({ to: "/" })}
           />
