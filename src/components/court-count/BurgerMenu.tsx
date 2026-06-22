@@ -91,6 +91,10 @@ export function BurgerMenu({ open, onClose }: Props) {
       <aside
         role="dialog"
         aria-modal="true"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onTouchCancel={handleTouchEnd}
         style={{
           position: "relative",
           width: 280,
@@ -100,6 +104,9 @@ export function BurgerMenu({ open, onClose }: Props) {
           display: "flex",
           flexDirection: "column",
           boxShadow: "-8px 0 24px rgba(0,0,0,0.25)",
+          transform: dragX > 0 ? `translateX(${dragX}px)` : undefined,
+          transition: dragX > 0 ? "none" : "transform 200ms ease",
+          touchAction: "pan-y",
         }}
       >
         <div style={{ height: 28 }} />
