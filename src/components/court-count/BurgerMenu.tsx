@@ -65,8 +65,6 @@ export function BurgerMenu({ open, onClose }: Props) {
 
   const navItems = [
     { label: "Турниры", active: true },
-    { label: "О нас", active: false },
-    { label: "База знаний", active: false },
   ];
 
   return (
