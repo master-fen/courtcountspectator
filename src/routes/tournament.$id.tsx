@@ -15,7 +15,7 @@ import { useAuth } from "@/hooks/use-auth";
 /** Rough estimate of how many 21px lines the title needs on mobile (~355 px width). */
 function estimateTitleLines(title: string): number {
   const charsPerLine = 32;
-  return Math.min(4, Math.max(2, Math.ceil(title.length / charsPerLine)));
+  return Math.min(4, Math.max(1, Math.ceil(title.length / charsPerLine)));
 }
 
 export const Route = createFileRoute("/tournament/$id")({

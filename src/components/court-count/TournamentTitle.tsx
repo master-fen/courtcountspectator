@@ -12,8 +12,10 @@ export function TournamentTitle({
   progress?: number;
   onBack?: () => void;
 }) {
-  const p = Math.max(0, Math.min(1, progress));
-  const fullHeight = 21 * Math.max(1, lines);
+  const effectiveLines = Math.max(1, lines);
+  const isSingle = effectiveLines === 1;
+  const p = isSingle ? 0 : Math.max(0, Math.min(1, progress));
+  const fullHeight = 21 * effectiveLines;
 
   const height = fullHeight - (fullHeight - 21) * p;
   const fullOpacity = Math.max(0, 1 - p * 1.4);
@@ -23,8 +25,12 @@ export function TournamentTitle({
 
   return (
     <div
-      className="flex flex-row bg-court-surface w-full items-start"
-      style={{ padding: "0 12px", gap: 8 }}
+      className="flex flex-row bg-court-surface w-full"
+      style={{
+        padding: "8px 12px",
+        gap: 8,
+        alignItems: isSingle ? "center" : "flex-start",
+      }}
     >
       <button
         type="button"
@@ -32,12 +38,14 @@ export function TournamentTitle({
         onClick={onBack}
         style={{
           color: "var(--court-text-strong)",
-          marginTop: 2 * (1 - p),
           flexShrink: 0,
           background: "transparent",
           border: "none",
           padding: 0,
           cursor: onBack ? "pointer" : "default",
+          display: "flex",
+          alignItems: "center",
+          height: isSingle ? 21 : 21 + 2 * (1 - p),
         }}
       >
         <ArrowLeft style={{ width: 24, height: 24 }} />
@@ -74,7 +82,7 @@ export function TournamentTitle({
               margin: 0,
               display: "-webkit-box",
               WebkitBoxOrient: "vertical",
-              WebkitLineClamp: lines,
+              WebkitLineClamp: effectiveLines,
               overflow: "hidden",
               wordBreak: "break-word",
             }}
@@ -83,37 +91,39 @@ export function TournamentTitle({
           </h1>
         </div>
 
-        {/* Compact text layer */}
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: 21,
-            overflow: "hidden",
-            opacity: compactOpacity,
-            transform: `translateY(${compactTranslate}px)`,
-            pointerEvents: p > 0.5 ? "auto" : "none",
-            willChange: "opacity, transform",
-          }}
-        >
-          <h1
+        {/* Compact text layer — only when title can shrink */}
+        {!isSingle && (
+          <div
             style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 500,
-              fontSize: 18,
-              lineHeight: "21px",
-              color: "var(--court-text-strong)",
-              margin: 0,
-              whiteSpace: "nowrap",
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: 21,
               overflow: "hidden",
-              textOverflow: "ellipsis",
+              opacity: compactOpacity,
+              transform: `translateY(${compactTranslate}px)`,
+              pointerEvents: p > 0.5 ? "auto" : "none",
+              willChange: "opacity, transform",
             }}
           >
-            {title}
-          </h1>
-        </div>
+            <h1
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 500,
+                fontSize: 18,
+                lineHeight: "21px",
+                color: "var(--court-text-strong)",
+                margin: 0,
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
+            >
+              {title}
+            </h1>
+          </div>
+        )}
       </div>
     </div>
   );
