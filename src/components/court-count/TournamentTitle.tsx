@@ -1,4 +1,7 @@
 import { ArrowLeft } from "lucide-react";
+import { useEffect, useState } from "react";
+
+const TRANSITION = "opacity 140ms ease, height 140ms ease";
 
 export function TournamentTitle({
   title,
@@ -14,15 +17,19 @@ export function TournamentTitle({
 }) {
   const effectiveLines = Math.max(1, lines);
   const isSingle = effectiveLines === 1;
-  const p = isSingle ? 0 : Math.max(0, Math.min(1, progress));
-  const fullHeight = 21 * effectiveLines;
 
-  const height = fullHeight - (fullHeight - 21) * p;
-  const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
-  const fullOpacity = clamp01((0.5 - p) / 0.15);
-  const compactOpacity = clamp01((p - 0.5) / 0.15);
-  const fullTranslate = 0;
-  const compactTranslate = 0;
+  // Hysteresis: switch to compact only after p > 0.6, back to full only when p < 0.4.
+  // Inside [0.4, 0.6] the mode is sticky — micro-scrolling can't flicker it.
+  const [mode, setMode] = useState<"full" | "compact">("full");
+  useEffect(() => {
+    if (isSingle) return;
+    if (progress > 0.6 && mode === "full") setMode("compact");
+    else if (progress < 0.4 && mode === "compact") setMode("full");
+  }, [progress, mode, isSingle]);
+
+  const compact = !isSingle && mode === "compact";
+  const fullHeight = 21 * effectiveLines;
+  const height = isSingle ? 21 : compact ? 21 : fullHeight;
 
   return (
     <div
@@ -30,7 +37,7 @@ export function TournamentTitle({
       style={{
         padding: "8px 12px",
         gap: 8,
-        alignItems: isSingle ? "center" : "flex-start",
+        alignItems: isSingle || compact ? "center" : "flex-start",
       }}
     >
       <button
@@ -46,7 +53,7 @@ export function TournamentTitle({
           cursor: onBack ? "pointer" : "default",
           display: "flex",
           alignItems: "center",
-          height: isSingle ? 21 : 21 + 2 * (1 - p),
+          height: 21,
         }}
       >
         <ArrowLeft style={{ width: 24, height: 24 }} />
@@ -57,6 +64,7 @@ export function TournamentTitle({
         style={{
           overflow: "hidden",
           height,
+          transition: isSingle ? undefined : TRANSITION,
           willChange: "height",
         }}
       >
@@ -67,10 +75,9 @@ export function TournamentTitle({
             top: 0,
             left: 0,
             width: "100%",
-            opacity: fullOpacity,
-            transform: `translateY(${fullTranslate}px)`,
-            pointerEvents: p > 0.5 ? "none" : "auto",
-            willChange: "opacity, transform",
+            opacity: compact ? 0 : 1,
+            transition: isSingle ? undefined : TRANSITION,
+            pointerEvents: compact ? "none" : "auto",
           }}
         >
           <h1
@@ -102,10 +109,9 @@ export function TournamentTitle({
               width: "100%",
               height: 21,
               overflow: "hidden",
-              opacity: compactOpacity,
-              transform: `translateY(${compactTranslate}px)`,
-              pointerEvents: p > 0.5 ? "auto" : "none",
-              willChange: "opacity, transform",
+              opacity: compact ? 1 : 0,
+              transition: TRANSITION,
+              pointerEvents: compact ? "auto" : "none",
             }}
           >
             <h1
