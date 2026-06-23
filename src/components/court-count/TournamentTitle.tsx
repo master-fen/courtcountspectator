@@ -18,10 +18,11 @@ export function TournamentTitle({
   const fullHeight = 21 * effectiveLines;
 
   const height = fullHeight - (fullHeight - 21) * p;
-  const fullOpacity = Math.max(0, 1 - p * 1.4);
-  const compactOpacity = Math.max(0, (p - 0.2) / 0.8);
-  const fullTranslate = -10 * p;
-  const compactTranslate = 10 * (1 - p);
+  const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
+  const fullOpacity = clamp01((0.5 - p) / 0.15);
+  const compactOpacity = clamp01((p - 0.5) / 0.15);
+  const fullTranslate = 0;
+  const compactTranslate = 0;
 
   return (
     <div
