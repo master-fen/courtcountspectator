@@ -65,8 +65,6 @@ export function BurgerMenu({ open, onClose }: Props) {
 
   const navItems = [
     { label: "Турниры", active: true },
-    { label: "О нас", active: false },
-    { label: "База знаний", active: false },
   ];
 
   return (
@@ -113,8 +111,6 @@ export function BurgerMenu({ open, onClose }: Props) {
           touchAction: "pan-y",
         }}
       >
-        <div style={{ height: 28 }} />
-
         <nav style={{ display: "flex", flexDirection: "column" }}>
           {navItems.map((item) => (
             <button
@@ -129,7 +125,7 @@ export function BurgerMenu({ open, onClose }: Props) {
               style={{
                 display: "flex",
                 alignItems: "center",
-                padding: "14px 24px",
+                padding: "10px 24px",
                 background: item.active
                   ? "color-mix(in oklab, var(--court-primary) 18%, transparent)"
                   : "transparent",
@@ -166,7 +162,7 @@ export function BurgerMenu({ open, onClose }: Props) {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              padding: "14px 24px",
+              padding: "10px 24px",
               background: "transparent",
               border: "none",
               cursor: "pointer",
@@ -211,7 +207,7 @@ export function BurgerMenu({ open, onClose }: Props) {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              padding: "14px 24px",
+              padding: "10px 24px",
               fontFamily: "var(--font-body)",
               fontSize: 16,
               lineHeight: "20px",
