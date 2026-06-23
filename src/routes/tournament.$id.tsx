@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { createFileRoute, notFound, useNavigate } from "@tanstack/react-router";
 import { Header } from "@/components/court-count/Header";
 import { TournamentTitle } from "@/components/court-count/TournamentTitle";
@@ -17,6 +17,12 @@ function estimateTitleLines(title: string): number {
   const charsPerLine = 32;
   return Math.min(4, Math.max(1, Math.ceil(title.length / charsPerLine)));
 }
+
+const HEADER_HEIGHT = 48;
+const TITLE_PADDING_Y = 8;
+const LINE_HEIGHT = 21;
+/** Top offset where the tabs/filters block sticks (header + title top padding + first line). */
+const TABS_STICKY_TOP = HEADER_HEIGHT + TITLE_PADDING_Y + LINE_HEIGHT; // 77
 
 export const Route = createFileRoute("/tournament/$id")({
   loader: ({ params }) => {
@@ -39,7 +45,41 @@ function TournamentDetail() {
   const [filter, setFilter] = useState<StatusFilter>("Все");
   const [selected, setSelected] = useState<Match | null>(null);
   const [tab, setTab] = useState<Tab>("Матчи");
+  const [titleClamped, setTitleClamped] = useState(false);
+  const clampedRef = useRef(false);
   const titleLines = useMemo(() => estimateTitleLines(tournament.title), [tournament.title]);
+
+  useEffect(() => {
+    if (titleLines <= 1) return;
+    // Tabs become sticky once scrollY exceeds (titleHeight + bottomPadding - distance above sticky point).
+    // Title occupies 21*L + 16 px starting at y=HEADER_HEIGHT. Tabs natural y = HEADER + 21*L + 16.
+    // They stick once scrollY >= (HEADER + 21*L + 16) - TABS_STICKY_TOP = 21*L - 13.
+    const threshold = LINE_HEIGHT * titleLines - 13;
+    const enter = threshold;
+    const exit = Math.max(0, threshold - 6); // small hysteresis
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const y = window.scrollY;
+      const current = clampedRef.current;
+      if (!current && y >= enter) {
+        clampedRef.current = true;
+        setTitleClamped(true);
+      } else if (current && y <= exit) {
+        clampedRef.current = false;
+        setTitleClamped(false);
+      }
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [titleLines]);
 
   const matches = useMemo(() => {
     const active = mockMatches.filter((m) => m.status !== "completed");
@@ -55,7 +95,7 @@ function TournamentDetail() {
       style={{ background: "var(--court-bg)", fontFamily: "var(--font-body)" }}
     >
       <div className="flex flex-col items-stretch w-full">
-        {/* Header — sticky top layer */}
+        {/* Header — top sticky layer */}
         <div
           className="bg-court-surface w-full"
           style={{ position: "sticky", top: 0, zIndex: 40 }}
@@ -63,21 +103,25 @@ function TournamentDetail() {
           <Header />
         </div>
 
-        {/* Title — scrolls away under the tabs/filters layer */}
-        <div className="bg-court-surface w-full" style={{ position: "relative", zIndex: 10 }}>
+        {/* Title — sticky just under the header; tabs slide over its lower lines */}
+        <div
+          className="bg-court-surface w-full"
+          style={{ position: "sticky", top: HEADER_HEIGHT, zIndex: 10 }}
+        >
           <TournamentTitle
             title={tournament.title}
             lines={titleLines}
+            clamped={titleClamped}
             onBack={() => navigate({ to: "/" })}
           />
         </div>
 
-        {/* Tabs + filters — sticky just below the header, overlap the title */}
+        {/* Tabs + filters — sticky overlay that "catches up" to the title */}
         <div
           className="flex flex-col items-stretch bg-court-surface w-full"
           style={{
             position: "sticky",
-            top: 48,
+            top: TABS_STICKY_TOP,
             zIndex: 30,
             gap: 12,
             paddingTop: 8,

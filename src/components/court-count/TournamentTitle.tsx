@@ -3,14 +3,18 @@ import { ArrowLeft } from "lucide-react";
 export function TournamentTitle({
   title,
   lines = 2,
+  clamped = false,
   onBack,
 }: {
   title: string;
   lines?: number;
+  /** Force single-line display with ellipsis (when tabs overlay the lower lines) */
+  clamped?: boolean;
   onBack?: () => void;
 }) {
   const effectiveLines = Math.max(1, lines);
   const isSingle = effectiveLines === 1;
+  const visibleLines = clamped ? 1 : effectiveLines;
   const height = 21 * effectiveLines;
 
   return (
@@ -19,7 +23,7 @@ export function TournamentTitle({
       style={{
         padding: "8px 12px",
         gap: 8,
-        alignItems: isSingle ? "center" : "flex-start",
+        alignItems: isSingle || clamped ? "center" : "flex-start",
       }}
     >
       <button
@@ -41,7 +45,10 @@ export function TournamentTitle({
         <ArrowLeft style={{ width: 24, height: 24 }} />
       </button>
 
-      <div className="min-w-0 flex-1" style={{ height, overflow: "hidden" }}>
+      <div
+        className="min-w-0 flex-1"
+        style={{ height: clamped ? 21 : height, overflow: "hidden" }}
+      >
         <h1
           style={{
             fontFamily: "var(--font-display)",
@@ -52,9 +59,10 @@ export function TournamentTitle({
             margin: 0,
             display: "-webkit-box",
             WebkitBoxOrient: "vertical",
-            WebkitLineClamp: effectiveLines,
+            WebkitLineClamp: visibleLines,
             overflow: "hidden",
             wordBreak: "break-word",
+            textOverflow: "ellipsis",
           }}
         >
           {title}
