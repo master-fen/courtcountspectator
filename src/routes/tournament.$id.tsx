@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { createFileRoute, notFound, useNavigate } from "@tanstack/react-router";
 import { Header } from "@/components/court-count/Header";
 import { TournamentTitle } from "@/components/court-count/TournamentTitle";
@@ -38,30 +38,8 @@ function TournamentDetail() {
   const { isAuthed } = useAuth();
   const [filter, setFilter] = useState<StatusFilter>("Все");
   const [selected, setSelected] = useState<Match | null>(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [tab, setTab] = useState<Tab>("Матчи");
   const titleLines = useMemo(() => estimateTitleLines(tournament.title), [tournament.title]);
-
-  useEffect(() => {
-    const START = 0;
-    const END = 48;
-    let raf = 0;
-    const update = () => {
-      raf = 0;
-      const y = window.scrollY;
-      const p = Math.max(0, Math.min(1, (y - START) / (END - START)));
-      setScrollProgress(p);
-    };
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, []);
 
   const matches = useMemo(() => {
     const active = mockMatches.filter((m) => m.status !== "completed");
@@ -77,23 +55,35 @@ function TournamentDetail() {
       style={{ background: "var(--court-bg)", fontFamily: "var(--font-body)" }}
     >
       <div className="flex flex-col items-stretch w-full">
+        {/* Header — sticky top layer */}
+        <div
+          className="bg-court-surface w-full"
+          style={{ position: "sticky", top: 0, zIndex: 40 }}
+        >
+          <Header />
+        </div>
+
+        {/* Title — scrolls away under the tabs/filters layer */}
+        <div className="bg-court-surface w-full" style={{ position: "relative", zIndex: 10 }}>
+          <TournamentTitle
+            title={tournament.title}
+            lines={titleLines}
+            onBack={() => navigate({ to: "/" })}
+          />
+        </div>
+
+        {/* Tabs + filters — sticky just below the header, overlap the title */}
         <div
           className="flex flex-col items-stretch bg-court-surface w-full"
           style={{
             position: "sticky",
-            top: 0,
+            top: 48,
             zIndex: 30,
             gap: 12,
+            paddingTop: 8,
             paddingBottom: 8,
           }}
         >
-          <Header />
-          <TournamentTitle
-            title={tournament.title}
-            lines={titleLines}
-            progress={scrollProgress}
-            onBack={() => navigate({ to: "/" })}
-          />
           <SectionTabs active={tab} onChange={setTab} />
           {tab === "Матчи" && <StatusPills active={filter} onChange={setFilter} />}
         </div>
