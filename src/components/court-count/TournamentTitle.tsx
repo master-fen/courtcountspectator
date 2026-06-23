@@ -90,7 +90,7 @@ export function TournamentTitle({
               margin: 0,
               display: "-webkit-box",
               WebkitBoxOrient: "vertical",
-              WebkitLineClamp: effectiveLines,
+              WebkitLineClamp: compact ? 1 : effectiveLines,
               overflow: "hidden",
               wordBreak: "break-word",
             }}
