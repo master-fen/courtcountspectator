@@ -111,8 +111,6 @@ export function BurgerMenu({ open, onClose }: Props) {
           touchAction: "pan-y",
         }}
       >
-        <div style={{ height: 28 }} />
-
         <nav style={{ display: "flex", flexDirection: "column" }}>
           {navItems.map((item) => (
             <button
